@@ -26,6 +26,7 @@ import org.apache.rocketmq.client.producer.MessageQueueSelector;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageQueue;
+
 /**
  *
  * 部分顺序消息生产
@@ -33,7 +34,7 @@ import org.apache.rocketmq.common.message.MessageQueue;
 public class ProducerInOrder {
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("OrderProducer");
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("47.100.11.132:9876");
         producer.start();
 
         String[] tags = new String[]{"TagA", "TagC", "TagD"};
@@ -91,10 +92,7 @@ public class ProducerInOrder {
 
         @Override
         public String toString() {
-            return "Order{" +
-                    "orderId=" + orderId +
-                    ", desc='" + desc + '\'' +
-                    '}';
+            return "Order{" + "orderId=" + orderId + ", desc='" + desc + '\'' + '}';
         }
     }
 

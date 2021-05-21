@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class ConsumerInOrder {
     public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("OrderConsumer");
-        consumer.setNamesrvAddr("127.0.0.1:9876");
+        consumer.setNamesrvAddr("47.100.11.132:9876");
         /**
          * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费<br>
          * 如果非第一次启动，那么按照上次消费的位置继续消费
@@ -31,7 +31,8 @@ public class ConsumerInOrder {
                 context.setAutoCommit(true);
                 for (MessageExt msg : msgs) {
                     // 可以看到每个queue有唯一的consume线程来消费, 订单对每个queue(分区)有序
-                    System.out.println("consumeThread=" + Thread.currentThread().getName() + "queueId=" + msg.getQueueId() + ", content:" + new String(msg.getBody()));
+                    System.out.println("consumeThread=" + Thread.currentThread().getName() +
+                        "queueId=" + msg.getQueueId() + ", content:" + new String(msg.getBody()));
                 }
                 try {
                     //模拟业务逻辑处理中...
