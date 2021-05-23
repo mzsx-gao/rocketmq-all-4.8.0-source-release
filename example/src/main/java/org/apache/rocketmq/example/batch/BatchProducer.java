@@ -28,7 +28,7 @@ public class BatchProducer {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer("BatchProducer");
         // 设置NameServer的地址
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("47.100.11.132:9876");
         // 启动Producer实例
         producer.start();
 

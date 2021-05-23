@@ -31,7 +31,8 @@ public class SqlFilterConsumer {
 
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("SqlFilterConsumer");
 
-        // Don't forget to set enablePropertyFilter=true in broker
+        //使用sql过滤需要在broker配置文件中配置:enablePropertyFilter=true
+        //下面的TAGS是消息中默认的属性，a是生产者发送消息时给消息对象自定义设置的
         consumer.subscribe("SqlFilterTest",
             MessageSelector.bySql("(TAGS is not null and TAGS in ('TagA', 'TagB'))" +
                 "and (a is not null and a between 0 and 3)"));

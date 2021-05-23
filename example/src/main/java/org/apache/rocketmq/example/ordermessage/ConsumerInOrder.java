@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 /**
- *
  * 部分顺序消息消费
  */
 public class ConsumerInOrder {
@@ -25,7 +24,6 @@ public class ConsumerInOrder {
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.subscribe("PartOrder", "TagA || TagC || TagD");
         consumer.registerMessageListener(new MessageListenerOrderly() {
-            Random random = new Random();
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
                 context.setAutoCommit(true);
@@ -36,9 +34,12 @@ public class ConsumerInOrder {
                 }
                 try {
                     //模拟业务逻辑处理中...
+                    Random random = new Random();
                     TimeUnit.MILLISECONDS.sleep(random.nextInt(300));
                 } catch (Exception e) {
                     e.printStackTrace();
+                    //这个点要注意：意思是先等一会，一会儿再处理这批消息，而不是放到重试队列里
+                    return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
                 }
                 return ConsumeOrderlyStatus.SUCCESS;
             }

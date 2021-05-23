@@ -16,8 +16,6 @@
  */
 package org.apache.rocketmq.example.filter;
 
-import java.io.IOException;
-import java.util.List;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -25,16 +23,18 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 
+import java.util.List;
+
+/**
+ * tag过滤-消费者
+ */
 public class TagFilterConsumer {
 
-    public static void main(String[] args) throws InterruptedException, MQClientException, IOException {
+    public static void main(String[] args) throws  MQClientException {
 
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("TagFilterComsumer");
-
-        consumer.subscribe("TOPIC", "TAGA || TAGB || TAGC");
-
+        consumer.subscribe("TOPIC", "TagA || TagB || TagC");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
-
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                 ConsumeConcurrentlyContext context) {
@@ -42,9 +42,7 @@ public class TagFilterConsumer {
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
-
         consumer.start();
-
         System.out.printf("Consumer Started.%n");
     }
 }

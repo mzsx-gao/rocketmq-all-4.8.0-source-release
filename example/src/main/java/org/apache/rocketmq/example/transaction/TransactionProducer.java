@@ -37,9 +37,10 @@ public class TransactionProducer {
         //创建消息生产者
         TransactionMQProducer producer = new TransactionMQProducer("TransactionProducer");
         // 设置NameServer的地址
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("47.100.11.132:9876");
         //创建线程池
-        ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
+        ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS,
+                new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
                 Thread thread = new Thread(r);
@@ -56,9 +57,9 @@ public class TransactionProducer {
         String[] tags = new String[] {"TagA", "TagB", "TagC"};
         for (int i = 0; i < 3; i++) {
             try {
-                Message msg =
-                    new Message("TransactionTopic", tags[i % tags.length], "KEY" + i,
+                Message msg = new Message("TransactionTopic", tags[i % tags.length], "KEY" + i,
                         ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                //半事务发送1,2步
                 SendResult sendResult = producer.sendMessageInTransaction(msg, null);
                 System.out.printf("%s%n", sendResult);
                 Thread.sleep(1000);

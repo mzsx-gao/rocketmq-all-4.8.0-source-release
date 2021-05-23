@@ -28,7 +28,6 @@ import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageQueue;
 
 /**
- *
  * 部分顺序消息生产
  */
 public class ProducerInOrder {
@@ -54,6 +53,7 @@ public class ProducerInOrder {
                 public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
                     Long id = (Long) arg;  //根据订单id选择发送queue
                     long index = id % mqs.size();
+                    System.out.println("index:"+index);
                     return mqs.get((int) index);
                 }
             }, orderList.get(i).getOrderId());//订单id
@@ -100,7 +100,7 @@ public class ProducerInOrder {
      * 生成模拟订单数据
      */
     private List<Order> buildOrders() {
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList<>();
 
         Order orderDemo = new Order();
         orderDemo.setOrderId(20210406001L);

@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TransactionListenerImpl implements TransactionListener {
     private AtomicInteger transactionIndex = new AtomicInteger(0);    //事务状态记录
     private ConcurrentHashMap<String, Integer> localTrans = new ConcurrentHashMap<>();
+
     //执行本地事务
     @Override
     public LocalTransactionState executeLocalTransaction(Message msg, Object arg) {
@@ -36,6 +37,7 @@ public class TransactionListenerImpl implements TransactionListener {
         localTrans.put(msg.getTransactionId(), status);
         return LocalTransactionState.UNKNOW;//这里模拟的不进行步骤4
     }
+
     //检查本地事务状态
     @Override
     public LocalTransactionState checkLocalTransaction(MessageExt msg) {

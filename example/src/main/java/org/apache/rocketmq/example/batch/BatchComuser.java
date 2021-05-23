@@ -9,12 +9,15 @@ import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
 import java.util.List;
 
+/**
+ * 批量消息-消费者
+ */
 public class BatchComuser {
     public static void main(String[] args) throws Exception {
         // 实例化消息生产者,指定组名
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("BatchComsuer");
         // 指定Namesrv地址信息.
-        consumer.setNamesrvAddr("localhost:9876");
+        consumer.setNamesrvAddr("47.100.11.132:9876");
         // 订阅Topic
         consumer.subscribe("BatchTest", "*");
         //负载均衡模式消费

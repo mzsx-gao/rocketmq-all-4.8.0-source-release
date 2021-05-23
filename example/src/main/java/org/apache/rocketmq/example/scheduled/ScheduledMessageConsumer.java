@@ -13,7 +13,7 @@ public class ScheduledMessageConsumer {
         // 实例化消费者
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ScheduledConsumer");
         // 指定Namesrv地址信息.
-        consumer.setNamesrvAddr("localhost:9876");
+        consumer.setNamesrvAddr("47.100.11.132:9876");
         // 订阅Topics
         consumer.subscribe("ScheduledTopic", "*");
         // 注册消息监听者

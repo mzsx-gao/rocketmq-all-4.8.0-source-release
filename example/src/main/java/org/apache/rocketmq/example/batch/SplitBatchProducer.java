@@ -24,21 +24,24 @@ import java.util.Map;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
 
+/**
+ * 批量消息-超过4m-生产者
+ */
 public class SplitBatchProducer {
 
     public static void main(String[] args) throws Exception {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer("BatchProducer");
         // 设置NameServer的地址
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("47.100.11.132:9876");
         // 启动Producer实例
         producer.start();
 
         //large batch
         String topic = "BatchTest";
-        List<Message> messages = new ArrayList<>(100 * 1000);
+        List<Message> messages = new ArrayList<>(10 * 1000);
         //10万元素的数组
-        for (int i = 0; i < 100 * 1000; i++) {
+        for (int i = 0; i < 10 * 1000; i++) {
             messages.add(new Message(topic, "Tag", "OrderID" + i, ("Hello world " + i).getBytes()));
         }
 
