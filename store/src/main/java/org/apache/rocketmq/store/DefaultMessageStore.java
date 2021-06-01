@@ -427,6 +427,7 @@ public class DefaultMessageStore implements MessageStore {
         }
 
         long beginTime = this.getSystemClock().now();
+        //这里会进入commitLog的消息处理逻辑
         CompletableFuture<PutMessageResult> putResultFuture = this.commitLog.asyncPutMessage(msg);
 
         putResultFuture.thenAccept((result) -> {
@@ -683,10 +684,12 @@ public class DefaultMessageStore implements MessageStore {
                         }
 
                         nextBeginOffset = offset + (i / ConsumeQueue.CQ_STORE_UNIT_SIZE);
-
+                        //当前未被拉取到消费端的消息长度
                         long diff = maxOffsetPy - maxPhyOffsetPulling;
+                        //RocketMQ消息常驻内存的大小
                         long memory = (long) (StoreUtil.TOTAL_PHYSICAL_MEMORY_SIZE
-                            * (this.messageStoreConfig.getAccessMessageInMemoryMaxRatio() / 100.0));
+                                * (this.messageStoreConfig.getAccessMessageInMemoryMaxRatio() / 100.0));
+                        //当前需要拉取的消息已经超过常驻内存的大小， 表示主服务器繁忙， 此时才建议从从服务器拉取
                         getResult.setSuggestPullingFromSlave(diff > memory);
                     } finally {
 
