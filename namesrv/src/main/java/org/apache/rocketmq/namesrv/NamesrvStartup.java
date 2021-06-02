@@ -144,7 +144,7 @@ public class NamesrvStartup {
         if (null == controller) {
             throw new IllegalArgumentException("NamesrvController is null");
         }
-        //初始化NamesrvController
+        //初始化NamesrvController，开启定时任务:每隔10s扫描一次Broker,移除不活跃的Broker
         boolean initResult = controller.initialize();
         if (!initResult) {
             controller.shutdown();
@@ -158,7 +158,7 @@ public class NamesrvStartup {
                 return null;
             }
         }));
-
+        //启动NamesrvController,其实就是启动netty服务端，监听9876端口
         controller.start();
 
         return controller;

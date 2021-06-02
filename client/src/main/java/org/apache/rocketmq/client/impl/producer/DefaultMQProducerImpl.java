@@ -175,19 +175,27 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         this.start(true);
     }
 
+    //Producer的启动流程核心
     public void start(final boolean startFactory) throws MQClientException {
         switch (this.serviceState) {
+            //第一次创建一定到这里
             case CREATE_JUST:
                 this.serviceState = ServiceState.START_FAILED;
-
+                //检查生产者组是否满足要求
                 this.checkConfig();
-
+                //更改当前instanceName为进程ID
                 if (!this.defaultMQProducer.getProducerGroup().equals(MixAll.CLIENT_INNER_PRODUCER_GROUP)) {
                     this.defaultMQProducer.changeInstanceNameToPID();
                 }
 
+                /**
+                 * 整个JVM中只存在一个MQClientManager实例，维护一个MQClientInstance缓存表
+                 * ConcurrentMap<String,MQClientInstance > factoryTable = new ConcurrentHashMap<>();
+                 * 同一个clientId只会创建一个MQClientInstance。
+                 * MQClientInstance封装了RocketMQ网络处理API，是消息生产者和消息消费者与NameServer、Broker打交道的网络通道
+                 */
                 this.mQClientFactory = MQClientManager.getInstance().getOrCreateMQClientInstance(this.defaultMQProducer, rpcHook);
-
+                //注册当前生产者到到MQClientInstance管理中,方便后续调用网路请求
                 boolean registerOK = mQClientFactory.registerProducer(this.defaultMQProducer.getProducerGroup(), this);
                 if (!registerOK) {
                     this.serviceState = ServiceState.CREATE_JUST;
@@ -197,8 +205,9 @@ public class DefaultMQProducerImpl implements MQProducerInner {
                 }
 
                 this.topicPublishInfoTable.put(this.defaultMQProducer.getCreateTopicKey(), new TopicPublishInfo());
-
+                //启动生产者
                 if (startFactory) {
+                    //最终还是调用MQClientInstance
                     mQClientFactory.start();
                 }
 

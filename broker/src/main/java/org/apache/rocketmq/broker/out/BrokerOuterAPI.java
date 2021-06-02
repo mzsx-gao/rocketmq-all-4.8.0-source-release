@@ -125,7 +125,11 @@ public class BrokerOuterAPI {
         final List<RegisterBrokerResult> registerBrokerResultList = new CopyOnWriteArrayList<>();
         List<String> nameServerAddressList = this.remotingClient.getNameServerAddressList();
         if (nameServerAddressList != null && nameServerAddressList.size() > 0) {
-
+            /**
+             * 心跳包格式:
+             * 头部: brokerAddr、brokerld、brokerName、clusterName、haServerAddr、compressed。
+             * 请求体: 主题配置信息、过滤服务器配置信息、CRC32校验和
+             */
             final RegisterBrokerRequestHeader requestHeader = new RegisterBrokerRequestHeader();
             requestHeader.setBrokerAddr(brokerAddr);
             requestHeader.setBrokerId(brokerId);
@@ -140,6 +144,9 @@ public class BrokerOuterAPI {
             final byte[] body = requestBody.encode(compressed);
             final int bodyCrc32 = UtilAll.crc32(body);
             requestHeader.setBodyCrc32(bodyCrc32);
+
+            //向多个NameServer发送使用CDL一起发送
+            //countDownLatch 发令枪
             final CountDownLatch countDownLatch = new CountDownLatch(nameServerAddressList.size());
             for (final String namesrvAddr : nameServerAddressList) {
                 brokerOuterExecutor.execute(new Runnable() {
@@ -150,7 +157,6 @@ public class BrokerOuterAPI {
                             if (result != null) {
                                 registerBrokerResultList.add(result);
                             }
-
                             log.info("register broker[{}]to name server {} OK", brokerId, namesrvAddr);
                         } catch (Exception e) {
                             log.warn("registerBroker Exception, {}", namesrvAddr, e);
@@ -160,13 +166,11 @@ public class BrokerOuterAPI {
                     }
                 });
             }
-
             try {
                 countDownLatch.await(timeoutMills, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
             }
         }
-
         return registerBrokerResultList;
     }
 
@@ -178,6 +182,7 @@ public class BrokerOuterAPI {
         final byte[] body
     ) throws RemotingCommandException, MQBrokerException, RemotingConnectException, RemotingSendRequestException, RemotingTimeoutException,
         InterruptedException {
+        //统一封装了，向NameServer发送的话，由DefaultRequestProcessor统一处理，根据RequestCode
         RemotingCommand request = RemotingCommand.createRequestCommand(RequestCode.REGISTER_BROKER, requestHeader);
         request.setBody(body);
 
