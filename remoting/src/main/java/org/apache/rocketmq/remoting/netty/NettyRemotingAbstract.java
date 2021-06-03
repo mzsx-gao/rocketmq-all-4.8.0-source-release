@@ -404,6 +404,7 @@ public abstract class NettyRemotingAbstract {
         }
     }
 
+
     public RemotingCommand invokeSyncImpl(final Channel channel, final RemotingCommand request,
         final long timeoutMillis)
         throws InterruptedException, RemotingSendRequestException, RemotingTimeoutException {
@@ -413,6 +414,7 @@ public abstract class NettyRemotingAbstract {
             final ResponseFuture responseFuture = new ResponseFuture(channel, opaque, timeoutMillis, null, null);
             this.responseTable.put(opaque, responseFuture);
             final SocketAddress addr = channel.remoteAddress();
+            //发送消息
             channel.writeAndFlush(request).addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture f) throws Exception {
@@ -436,10 +438,10 @@ public abstract class NettyRemotingAbstract {
                     throw new RemotingTimeoutException(RemotingHelper.parseSocketAddressAddr(addr), timeoutMillis,
                         responseFuture.getCause());
                 } else {
-                    throw new RemotingSendRequestException(RemotingHelper.parseSocketAddressAddr(addr), responseFuture.getCause());
+                    throw new RemotingSendRequestException(RemotingHelper.parseSocketAddressAddr(addr),
+                        responseFuture.getCause());
                 }
             }
-
             return responseCommand;
         } finally {
             this.responseTable.remove(opaque);

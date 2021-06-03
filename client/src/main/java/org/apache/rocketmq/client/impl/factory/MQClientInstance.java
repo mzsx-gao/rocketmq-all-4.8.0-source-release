@@ -233,11 +233,11 @@ public class MQClientInstance {
                     }
                     // Start request-response channel
                     this.mQClientAPIImpl.start();
-                    // Start various schedule tasks
+                    //定时任务
                     this.startScheduledTask();
-                    // Start pull service
+                    //开启拉消息服务（线程）
                     this.pullMessageService.start();
-                    // Start rebalance service
+                    //负载均衡服务（线程）
                     this.rebalanceService.start();
                     // Start push service
                     this.defaultMQProducer.getDefaultMQProducerImpl().start(false);

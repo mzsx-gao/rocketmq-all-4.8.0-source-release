@@ -70,7 +70,7 @@ public class TopicPublishInfo {
         //第一次选择队列
         if (lastBrokerName == null) {
             return selectOneMessageQueue();
-        } else {
+        } else {//重试发送时的消息发送
             //sendWhichQueue
             for (int i = 0; i < this.messageQueueList.size(); i++) {
                 int index = this.sendWhichQueue.getAndIncrement();
@@ -78,7 +78,7 @@ public class TopicPublishInfo {
                 int pos = Math.abs(index) % this.messageQueueList.size();
                 if (pos < 0)
                     pos = 0;
-                //规避上次Broker队列
+                //重试中，规避上次Broker队列
                 MessageQueue mq = this.messageQueueList.get(pos);
                 if (!mq.getBrokerName().equals(lastBrokerName)) {
                     return mq;
