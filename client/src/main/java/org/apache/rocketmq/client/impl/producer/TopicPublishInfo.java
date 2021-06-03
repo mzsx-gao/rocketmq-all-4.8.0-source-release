@@ -90,7 +90,7 @@ public class TopicPublishInfo {
     }
     //第一次选择队列
     public MessageQueue selectOneMessageQueue() {
-        //sendWhichQueue自增
+        //sendWhichQueue自增（这里使用的是ThreadLocal）
         int index = this.sendWhichQueue.getAndIncrement();
         //对队列大小取模
         int pos = Math.abs(index) % this.messageQueueList.size();

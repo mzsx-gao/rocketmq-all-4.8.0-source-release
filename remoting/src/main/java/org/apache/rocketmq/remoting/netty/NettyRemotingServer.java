@@ -415,7 +415,7 @@ public class NettyRemotingServer extends NettyRemotingAbstract implements Remoti
 
     @ChannelHandler.Sharable
     class NettyServerHandler extends SimpleChannelInboundHandler<RemotingCommand> {
-
+        //服务端收到消息后进行处理
         @Override
         protected void channelRead0(ChannelHandlerContext ctx, RemotingCommand msg) throws Exception {
             processMessageReceived(ctx, msg);

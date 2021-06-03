@@ -38,7 +38,7 @@ public class MappedFileQueue {
     private final String storePath;
 
     private final int mappedFileSize;
-
+    //写时复制容器存储
     private final CopyOnWriteArrayList<MappedFile> mappedFiles = new CopyOnWriteArrayList<MappedFile>();
 
     private final AllocateMappedFileService allocateMappedFileService;

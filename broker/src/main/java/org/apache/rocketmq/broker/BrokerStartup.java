@@ -58,7 +58,10 @@ public class BrokerStartup {
     public static InternalLogger log;
 
     public static void main(String[] args) {
-        start(createBrokerController(args));
+        //创建并初始化BrokerController
+        BrokerController brokerController = createBrokerController(args);
+        //启动BrokerController
+        start(brokerController);
     }
 
     public static BrokerController start(BrokerController controller) {

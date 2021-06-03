@@ -408,6 +408,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         this.checkExecutor.submit(request);
     }
 
+    //更新主题路由信息到本地缓存
     @Override
     public void updateTopicPublishInfo(final String topic, final TopicPublishInfo info) {
         if (info != null && topic != null) {
@@ -545,8 +546,8 @@ public class DefaultMQProducerImpl implements MQProducerInner {
     private void validateNameServerSetting() throws MQClientException {
         List<String> nsList = this.getmQClientFactory().getMQClientAPIImpl().getNameServerAddressList();
         if (null == nsList || nsList.isEmpty()) {
-            throw new MQClientException(
-                "No name server address, please set it." + FAQUrl.suggestTodo(FAQUrl.NAME_SERVER_ADDR_NOT_EXIST_URL), null).setResponseCode(ClientErrorCode.NO_NAME_SERVER_EXCEPTION);
+            throw new MQClientException("No name server address, please set it." +
+                    FAQUrl.suggestTodo(FAQUrl.NAME_SERVER_ADDR_NOT_EXIST_URL), null).setResponseCode(ClientErrorCode.NO_NAME_SERVER_EXCEPTION);
         }
 
     }
@@ -701,6 +702,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
             null).setResponseCode(ClientErrorCode.NOT_FOUND_TOPIC_EXCEPTION);
     }
 
+    //查找主题路由信息
     private TopicPublishInfo tryToFindTopicPublishInfo(final String topic) {
         //从缓存中获得主题的路由信息
         TopicPublishInfo topicPublishInfo = this.topicPublishInfoTable.get(topic);

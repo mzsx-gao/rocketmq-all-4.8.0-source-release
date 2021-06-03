@@ -232,6 +232,7 @@ public class MQClientInstance {
                         this.mQClientAPIImpl.fetchNameServerAddr();
                     }
                     // Start request-response channel
+                    //这里会设置好netty客户端连接的信息(Netty原生的Bootstrap)，后续需要发送消息时调用connect()方法
                     this.mQClientAPIImpl.start();
                     //定时任务
                     this.startScheduledTask();
@@ -602,6 +603,7 @@ public class MQClientInstance {
         }
     }
 
+    //从nameserver获取主题路由信息，更新到本地缓存
     public boolean updateTopicRouteInfoFromNameServer(final String topic, boolean isDefault,
         DefaultMQProducer defaultMQProducer) {
         try {
@@ -646,6 +648,7 @@ public class MQClientInstance {
                                     Entry<String, MQProducerInner> entry = it.next();
                                     MQProducerInner impl = entry.getValue();
                                     if (impl != null) {
+                                        //更新主题路由信息到本地缓存
                                         impl.updateTopicPublishInfo(topic, publishInfo);
                                     }
                                 }
