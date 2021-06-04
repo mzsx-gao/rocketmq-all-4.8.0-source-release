@@ -14,12 +14,14 @@ public class SyncProducer {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
         // 设置NameServer的地址
-        producer.setNamesrvAddr("47.100.11.132:9876");
-//        producer.setNamesrvAddr("localhost:9876");
+//        producer.setNamesrvAddr("47.100.11.132:9876");
+        producer.setNamesrvAddr("localhost:9876");
         producer.setSendMsgTimeout(6000);
+        //启动故障延迟机制
+        producer.setSendLatencyFaultEnable(true);
         // 启动Producer实例
         producer.start();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             // 创建消息，并指定Topic，Tag和消息体
             Message msg = new Message("TopicTest" /* Topic */,
                     "TagA" /* Tag */,

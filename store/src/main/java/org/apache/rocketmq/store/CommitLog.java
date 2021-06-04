@@ -574,8 +574,7 @@ public class CommitLog {
         int queueId = msg.getQueueId();
         //处理延时消息(定时消息)
         final int tranType = MessageSysFlag.getTransactionValue(msg.getSysFlag());
-        if (tranType == MessageSysFlag.TRANSACTION_NOT_TYPE
-                || tranType == MessageSysFlag.TRANSACTION_COMMIT_TYPE) {
+        if (tranType == MessageSysFlag.TRANSACTION_NOT_TYPE || tranType == MessageSysFlag.TRANSACTION_COMMIT_TYPE) {
             // Delay Delivery
             if (msg.getDelayTimeLevel() > 0) {
                 if (msg.getDelayTimeLevel() > this.defaultMessageStore.getScheduleMessageService().getMaxDelayLevel()) {
@@ -1434,11 +1433,11 @@ public class CommitLog {
                         // There may be a message in the next file, so a maximum of
                         // two times the flush
                         boolean flushOK = CommitLog.this.mappedFileQueue.getFlushedWhere() >= req.getNextOffset();
-                        //todo 这里因为消息可能跨文件（满了又生成了一个，所以这里要刷两次）
+                        //这里因为消息可能跨文件（满了又生成了一个，所以这里要刷两次）
                         for (int i = 0; i < 2 && !flushOK; i++) {
                             //刷盘
                             CommitLog.this.mappedFileQueue.flush(0);
-                            //todo 刷盘指针大于等于提交指针，代表刷盘成功
+                            //刷盘指针大于等于提交指针，代表刷盘成功
                             flushOK = CommitLog.this.mappedFileQueue.getFlushedWhere() >= req.getNextOffset();
                         }
                         //唤醒发送消息客户端
