@@ -158,8 +158,13 @@ public class MappedFile extends ReferenceResource {
         ensureDirOK(this.file.getParent());
 
         try {
+            //文件通道 fileChannel
             this.fileChannel = new RandomAccessFile(this.file, "rw").getChannel();
+            //FileChannel配合着ByteBuffer，将读写的数据缓存到内存中(操纵大文件时可以显著提高效率)
+            //MappedByteBuffer （零拷贝之内存映射：mmap）
+            //FileChannel 定义了一个 map() 方法，它可以把一个文件从 position 位置开始的 size 大小的区域映射为内存映像文件
             this.mappedByteBuffer = this.fileChannel.map(MapMode.READ_WRITE, 0, fileSize);
+            //原子操作类 ---CAS的原子操作类--多线程效率（加锁）
             TOTAL_MAPPED_VIRTUAL_MEMORY.addAndGet(fileSize);
             TOTAL_MAPPED_FILES.incrementAndGet();
             ok = true;
@@ -203,7 +208,7 @@ public class MappedFile extends ReferenceResource {
         int currentPos = this.wrotePosition.get();
 
         if (currentPos < this.fileSize) {
-            //异步输盘时还有两种刷盘模式可以选择
+            //异步刷盘时还有两种刷盘模式可以选择
             ByteBuffer byteBuffer = writeBuffer != null ? writeBuffer.slice() : this.mappedByteBuffer.slice();
             byteBuffer.position(currentPos);
             AppendMessageResult result;
@@ -297,12 +302,14 @@ public class MappedFile extends ReferenceResource {
     }
 
     public int commit(final int commitLeastPages) {
+        //没有开启堆外缓冲，则不用处理直接返回写地址即可
         if (writeBuffer == null) {
             //no need to commit data to file channel, so just regard wrotePosition as committedPosition.
             return this.wrotePosition.get();
         }
         if (this.isAbleToCommit(commitLeastPages)) {
             if (this.hold()) {
+                //开启堆外缓冲，则需要先写到fileChannel中
                 commit0(commitLeastPages);
                 this.release();
             } else {

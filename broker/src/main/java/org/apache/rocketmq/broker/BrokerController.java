@@ -262,7 +262,7 @@ public class BrokerController {
                 log.error("Failed to initialize", e);
             }
         }
-
+        //加载commit log 与 consumer queue
         result = result && this.messageStore.load();
 
         if (result) {

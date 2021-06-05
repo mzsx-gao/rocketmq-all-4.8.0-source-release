@@ -31,9 +31,9 @@ import sun.nio.ch.DirectBuffer;
 public class TransientStorePool {
     private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
 
-    private final int poolSize;
-    private final int fileSize;
-    private final Deque<ByteBuffer> availableBuffers;
+    private final int poolSize;//缓冲池数量
+    private final int fileSize;//每个ByteBuffer大小
+    private final Deque<ByteBuffer> availableBuffers;//ByteBuffer容器。双端队列
     private final MessageStoreConfig storeConfig;
 
     public TransientStorePool(final MessageStoreConfig storeConfig) {
@@ -66,12 +66,14 @@ public class TransientStorePool {
         }
     }
 
+    //在创建 MappedFile 时就会进行设置。 要注意， 这里就会把堆外内存通过 returnBuffer()赋给 writeBuffer
     public void returnBuffer(ByteBuffer byteBuffer) {
         byteBuffer.position(0);
         byteBuffer.limit(fileSize);
         this.availableBuffers.offerFirst(byteBuffer);
     }
 
+    //借用堆外内存池 ByteBuffer
     public ByteBuffer borrowBuffer() {
         ByteBuffer buffer = availableBuffers.pollFirst();
         if (availableBuffers.size() < poolSize * 0.4) {

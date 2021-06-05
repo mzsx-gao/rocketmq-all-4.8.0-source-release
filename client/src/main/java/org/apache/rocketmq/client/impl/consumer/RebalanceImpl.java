@@ -40,8 +40,13 @@ import org.apache.rocketmq.common.protocol.heartbeat.ConsumeType;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.common.protocol.heartbeat.SubscriptionData;
 
+/**
+ * 消费者负载均衡:
+ * 当客户端关闭连接、注册客户端和注销客户端时，broker会通知客户端立即负载均衡
+ */
 public abstract class RebalanceImpl {
     protected static final InternalLogger log = ClientLogger.getLog();
+    //维护了当前客户端真在处理的所有Queue，以及Queue对应的消费进度
     protected final ConcurrentMap<MessageQueue, ProcessQueue> processQueueTable = new ConcurrentHashMap<MessageQueue, ProcessQueue>(64);
     protected final ConcurrentMap<String/* topic */, Set<MessageQueue>> topicSubscribeInfoTable =
         new ConcurrentHashMap<String, Set<MessageQueue>>();
@@ -255,14 +260,15 @@ public abstract class RebalanceImpl {
                 break;
             }
             case CLUSTERING: {
+                //获取主题下全部的消费队列
                 Set<MessageQueue> mqSet = this.topicSubscribeInfoTable.get(topic);
+                //获取所有的消费者的clientId
                 List<String> cidAll = this.mQClientFactory.findConsumerIdList(topic, consumerGroup);
                 if (null == mqSet) {
                     if (!topic.startsWith(MixAll.RETRY_GROUP_TOPIC_PREFIX)) {
                         log.warn("doRebalance, {}, but the topic[{}] not exist.", consumerGroup, topic);
                     }
                 }
-
                 if (null == cidAll) {
                     log.warn("doRebalance, {} {}, get consumer id list failed", consumerGroup, topic);
                 }
@@ -270,14 +276,14 @@ public abstract class RebalanceImpl {
                 if (mqSet != null && cidAll != null) {
                     List<MessageQueue> mqAll = new ArrayList<MessageQueue>();
                     mqAll.addAll(mqSet);
-
+                    //下面两个排序保证了所有消费者负载均衡算法的一致性
                     Collections.sort(mqAll);
                     Collections.sort(cidAll);
-
+                    // consumer 之间的消息分配策略算法，默认为 AllocateMessageQueueAveragely
                     AllocateMessageQueueStrategy strategy = this.allocateMessageQueueStrategy;
-
                     List<MessageQueue> allocateResult = null;
                     try {
+                        //执行分配算法,最终返回这个消费者应该消费哪些队列
                         allocateResult = strategy.allocate(
                             this.consumerGroup,
                             this.mQClientFactory.getClientId(),
@@ -293,13 +299,15 @@ public abstract class RebalanceImpl {
                     if (allocateResult != null) {
                         allocateResultSet.addAll(allocateResult);
                     }
-
+                    // 同步更新处理队列
                     boolean changed = this.updateProcessQueueTableInRebalance(topic, allocateResultSet, isOrder);
                     if (changed) {
                         log.info(
                             "rebalanced result changed. allocateMessageQueueStrategyName={}, group={}, topic={}, clientId={}, mqAllSize={}, cidAllSize={}, rebalanceResultSize={}, rebalanceResultSet={}",
                             strategy.getName(), consumerGroup, topic, this.mQClientFactory.getClientId(), mqSet.size(), cidAll.size(),
                             allocateResultSet.size(), allocateResultSet);
+                        // 如果处理队列被更新了调用此方法。交给子类去处理。
+                        // 在推模型中，此步骤是动态调整拉取队列个数和size的阀值并通知broker自己触发了下一个版本
                         this.messageQueueChanged(topic, mqSet, allocateResultSet);
                     }
                 }
@@ -325,19 +333,30 @@ public abstract class RebalanceImpl {
         }
     }
 
+    /**
+     * 1 找出rebalance后不属于当前客户端实例的Queue或者已经过期的Queue,标记为drop，并由子类判断是否是否需要移除，
+     * 如果需要移除，则该客户端实例所属的Queue便有改变。
+     *
+     * 2 判断Rebalance后分配的Queue是否有新增的Queue，如果有则移除缓存中该Queue的消费偏移量（保底操作），计算该
+     * Queue的消费偏移量，然后构造一个PullRequest对象存到列表里，标记Rebalane后处理的Queue有改变
+     *
+     * 3 分发rebalance后新增的Queue列表，即PullRequest列表，由具体的子类处理。
+     * pull模式不处理，push模式，则会放到PullMessageService中，循环处理，具体在RebalancePushImpl的dispatchPullRequest方法中
+     */
     private boolean updateProcessQueueTableInRebalance(final String topic, final Set<MessageQueue> mqSet,
         final boolean isOrder) {
         boolean changed = false;
 
+        // 1.找到不属于当前 consumer 实例的队列或者已经过期的队列
         Iterator<Entry<MessageQueue, ProcessQueue>> it = this.processQueueTable.entrySet().iterator();
         while (it.hasNext()) {
             Entry<MessageQueue, ProcessQueue> next = it.next();
             MessageQueue mq = next.getKey();
             ProcessQueue pq = next.getValue();
-
             if (mq.getTopic().equals(topic)) {
                 if (!mqSet.contains(mq)) {
                     pq.setDropped(true);
+                    // 子类实现移除不需要的消息队列
                     if (this.removeUnnecessaryMessageQueue(mq, pq)) {
                         it.remove();
                         changed = true;
@@ -349,6 +368,7 @@ public abstract class RebalanceImpl {
                             break;
                         case CONSUME_PASSIVELY:
                             pq.setDropped(true);
+                            // 子类实现移除不需要的消息队列
                             if (this.removeUnnecessaryMessageQueue(mq, pq)) {
                                 it.remove();
                                 changed = true;
@@ -364,15 +384,19 @@ public abstract class RebalanceImpl {
         }
 
         List<PullRequest> pullRequestList = new ArrayList<PullRequest>();
+
+        // 2.遍历处理 rebalance 后新增的队列
         for (MessageQueue mq : mqSet) {
             if (!this.processQueueTable.containsKey(mq)) {
+                // 顺序消息要尝试加锁
                 if (isOrder && !this.lock(mq)) {
                     log.warn("doRebalance, {}, add a new mq failed, {}, because lock failed", consumerGroup, mq);
                     continue;
                 }
-
+                //移除缓存中该Queue的消费偏移量
                 this.removeDirtyOffset(mq);
                 ProcessQueue pq = new ProcessQueue();
+                /* 计算拉取位置 */
                 long nextOffset = this.computePullFromWhere(mq);
                 if (nextOffset >= 0) {
                     ProcessQueue pre = this.processQueueTable.putIfAbsent(mq, pq);
@@ -393,9 +417,8 @@ public abstract class RebalanceImpl {
                 }
             }
         }
-
+        //转发拉取请求
         this.dispatchPullRequest(pullRequestList);
-
         return changed;
     }
 

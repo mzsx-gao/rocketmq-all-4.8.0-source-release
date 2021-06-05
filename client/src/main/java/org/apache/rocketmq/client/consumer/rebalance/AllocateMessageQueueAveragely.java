@@ -42,7 +42,7 @@ public class AllocateMessageQueueAveragely implements AllocateMessageQueueStrate
             throw new IllegalArgumentException("cidAll is null or cidAll empty");
         }
 
-        List<MessageQueue> result = new ArrayList<MessageQueue>();
+        List<MessageQueue> result = new ArrayList<>();
         if (!cidAll.contains(currentCID)) {
             log.info("[BUG] ConsumerGroup: {} The consumerId: {} not in cidAll: {}",
                 consumerGroup,
@@ -50,11 +50,17 @@ public class AllocateMessageQueueAveragely implements AllocateMessageQueueStrate
                 cidAll);
             return result;
         }
-
+        // 获取当前 consumerId 在所有消费者列表中的下标
         int index = cidAll.indexOf(currentCID);
+        // 结算的结果就是每个消费者平均分一个队列后还剩多少个
         int mod = mqAll.size() % cidAll.size();
+        /**
+         * 计算平均分配的数量:
+         * 如果队列的数量小于等于消费者的数量，则每个消费者分配一个队列，有可能存在有的消费者分配不到队列
+         * 否则每个消费者均分，mod > 0 也就是不能整除的情况，当消费者的下标小于 mod 时，多分一个，也就是平均值 + 1
+         */
         int averageSize =
-            mqAll.size() <= cidAll.size() ? 1 : (mod > 0 && index < mod ? mqAll.size() / cidAll.size()
+                mqAll.size() <= cidAll.size() ? 1 : (mod > 0 && index < mod ? mqAll.size() / cidAll.size()
                 + 1 : mqAll.size() / cidAll.size());
         int startIndex = (mod > 0 && index < mod) ? index * averageSize : index * averageSize + mod;
         int range = Math.min(averageSize, mqAll.size() - startIndex);

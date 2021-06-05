@@ -70,6 +70,9 @@ public class CommitLog {
 
     protected final PutMessageLock putMessageLock;
 
+    /**
+     * 异步刷盘线程有两个,一个是针对的 MMAP 刷盘，一个是针对的堆外内存缓冲的提交刷盘
+     */
     public CommitLog(final DefaultMessageStore defaultMessageStore) {
         this.mappedFileQueue = new MappedFileQueue(defaultMessageStore.getMessageStoreConfig().getStorePathCommitLog(),
                 defaultMessageStore.getMessageStoreConfig().getMappedFileSizeCommitLog(), defaultMessageStore.getAllocateMappedFileService());
@@ -78,11 +81,10 @@ public class CommitLog {
         if (FlushDiskType.SYNC_FLUSH == defaultMessageStore.getMessageStoreConfig().getFlushDiskType()) {
             this.flushCommitLogService = new GroupCommitService();
         } else {
-            //异步刷盘
-            //FlushRealTimeService线程默认每500ms将MappedByteBuffer中新追加的内存刷写到磁盘
+            //异步刷盘,FlushRealTimeService线程默认每500ms将MappedByteBuffer中新追加的内存刷写到磁盘
             this.flushCommitLogService = new FlushRealTimeService();
         }
-        //CommitRealTimeService线程每隔200ms将ByteBuffer新追加内容提交到MappedByteBuffer中
+        //异步刷盘(针对堆外内存缓冲的提交),CommitRealTimeService线程每隔200ms将ByteBuffer新追加内容提交到MappedByteBuffer中
         this.commitLogService = new CommitRealTimeService();
 
         this.appendMessageCallback = new DefaultAppendMessageCallback(defaultMessageStore.getMessageStoreConfig().getMaxMessageSize());
@@ -93,7 +95,6 @@ public class CommitLog {
             }
         };
         this.putMessageLock = defaultMessageStore.getMessageStoreConfig().isUseReentrantLockWhenPutMessage() ? new PutMessageReentrantLock() : new PutMessageSpinLock();
-
     }
 
     public boolean load() {
@@ -1241,6 +1242,7 @@ public class CommitLog {
         protected static final int RETRY_TIMES_OVER = 10;
     }
 
+    //异步刷盘
     class CommitRealTimeService extends FlushCommitLogService {
 
         private long lastCommitTimestamp = 0;
@@ -1254,19 +1256,20 @@ public class CommitLog {
         public void run() {
             CommitLog.log.info(this.getServiceName() + " service started");
             while (!this.isStopped()) {
+                //间隔时间,默认200ms
                 int interval = CommitLog.this.defaultMessageStore.getMessageStoreConfig().getCommitIntervalCommitLog();
-
+                //一次提交的至少页数
                 int commitDataLeastPages = CommitLog.this.defaultMessageStore.getMessageStoreConfig().getCommitCommitLogLeastPages();
-
+                //两次真实提交的最大间隔,默认200ms
                 int commitDataThoroughInterval =
                         CommitLog.this.defaultMessageStore.getMessageStoreConfig().getCommitCommitLogThoroughInterval();
-
+                //上次提交间隔超过commitDataThoroughInterval,则忽略提交commitDataThoroughInterval参数,直接提交
                 long begin = System.currentTimeMillis();
                 if (begin >= (this.lastCommitTimestamp + commitDataThoroughInterval)) {
                     this.lastCommitTimestamp = begin;
                     commitDataLeastPages = 0;
                 }
-
+                //执行提交操作,将待提交数据提交到物理文件的内存映射区
                 try {
                     boolean result = CommitLog.this.mappedFileQueue.commit(commitDataLeastPages);
                     long end = System.currentTimeMillis();
