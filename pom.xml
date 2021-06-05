@@ -28,7 +28,7 @@
 
     <inceptionYear>2012</inceptionYear>
     <groupId>org.apache.rocketmq</groupId>
-    <artifactId>rocketmq-all</artifactId>
+    <artifactId>rocketmq-all-4.8.0-source-release</artifactId>
     <version>4.8.0</version>
     <packaging>pom</packaging>
     <name>Apache RocketMQ ${project.version}</name>
