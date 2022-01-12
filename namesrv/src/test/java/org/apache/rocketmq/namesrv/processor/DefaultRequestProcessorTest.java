@@ -189,7 +189,7 @@ public class DefaultRequestProcessorTest {
         NoSuchFieldException, IllegalAccessException {
         RemotingCommand request = genSampleRegisterCmd(true);
 
-        // version >= MQVersion.Version.V3_0_11.ordinal() to register with filter server
+        // version >= MQVersion.Version.V3_0_11.ordinal() to register with demo6_filter server
         request.setVersion(100);
 
         ChannelHandlerContext ctx = mock(ChannelHandlerContext.class);
@@ -242,7 +242,7 @@ public class DefaultRequestProcessorTest {
             reg ? RequestCode.REGISTER_BROKER : RequestCode.UNREGISTER_BROKER, header);
         request.addExtField("brokerName", "broker");
         request.addExtField("brokerAddr", "10.10.1.1");
-        request.addExtField("clusterName", "cluster");
+        request.addExtField("clusterName", "demo8_cluster");
         request.addExtField("haServerAddr", "10.10.2.1");
         request.addExtField("brokerId", "2333");
         return request;
@@ -268,7 +268,7 @@ public class DefaultRequestProcessorTest {
         topicConfigConcurrentHashMap.put("unit-test", topicConfig);
         topicConfigSerializeWrapper.setTopicConfigTable(topicConfigConcurrentHashMap);
         Channel channel = mock(Channel.class);
-        RegisterBrokerResult registerBrokerResult = routeInfoManager.registerBroker("default-cluster", "127.0.0.1:10911", "default-broker", 1234, "127.0.0.1:1001",
+        RegisterBrokerResult registerBrokerResult = routeInfoManager.registerBroker("default-demo8_cluster", "127.0.0.1:10911", "default-broker", 1234, "127.0.0.1:1001",
             topicConfigSerializeWrapper, new ArrayList<String>(), channel);
 
     }

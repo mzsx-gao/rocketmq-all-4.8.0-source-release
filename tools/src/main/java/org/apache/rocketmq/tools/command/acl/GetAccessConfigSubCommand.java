@@ -42,7 +42,7 @@ public class GetAccessConfigSubCommand implements SubCommand {
     }
 
     @Override public String commandDesc() {
-        return "List all of acl config information in cluster";
+        return "List all of acl config information in demo8_cluster";
     }
 
     @Override public Options buildCommandlineOptions(Options options) {
@@ -51,7 +51,7 @@ public class GetAccessConfigSubCommand implements SubCommand {
         Option opt = new Option("b", "brokerAddr", true, "query acl config version for which broker");
         optionGroup.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "query acl config version for specified cluster");
+        opt = new Option("c", "clusterName", true, "query acl config version for specified demo8_cluster");
         optionGroup.addOption(opt);
 
         optionGroup.setRequired(true);

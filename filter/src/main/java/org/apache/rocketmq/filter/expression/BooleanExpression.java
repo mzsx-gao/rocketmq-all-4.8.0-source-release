@@ -21,7 +21,7 @@ package org.apache.rocketmq.filter.expression;
  * A BooleanExpression is an expression that always
  * produces a Boolean result.
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.BooleanExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.BooleanExpression,
  * but the parameter is changed to an interface.
  * </p>
  *

@@ -106,8 +106,8 @@ public class ExpressionMessageFilter implements MessageFilter {
                 log.debug("Pull {} by bit map:{}, {}, {}", ret, consumerFilterData, bitsArray, cqExtUnit);
                 return ret;
             } catch (Throwable e) {
-                log.error("bloom filter error, sub=" + subscriptionData
-                    + ", filter=" + consumerFilterData + ", bitMap=" + bitsArray, e);
+                log.error("bloom demo6_filter error, sub=" + subscriptionData
+                    + ", demo6_filter=" + consumerFilterData + ", bitMap=" + bitsArray, e);
             }
         }
 

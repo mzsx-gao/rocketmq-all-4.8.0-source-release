@@ -38,8 +38,8 @@ public class MessageStoreConfig {
     private boolean enableConsumeQueueExt = false;
     // ConsumeQueue extend file size, 48M
     private int mappedFileSizeConsumeQueueExt = 48 * 1024 * 1024;
-    // Bit count of filter bit map.
-    // this will be set by pipe of calculate filter bit map.
+    // Bit count of demo6_filter bit map.
+    // this will be set by pipe of calculate demo6_filter bit map.
     private int bitMapLengthConsumeQueueExt = 64;
 
     // CommitLog flush interval

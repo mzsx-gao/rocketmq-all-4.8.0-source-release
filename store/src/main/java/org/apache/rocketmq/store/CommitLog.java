@@ -1882,7 +1882,7 @@ public class CommitLog {
                 this.msgBatchMemory.put(messageExtBatch.getStoreHostBytes(storeHostHolder));
                 // 13 RECONSUMETIMES
                 this.msgBatchMemory.putInt(messageExtBatch.getReconsumeTimes());
-                // 14 Prepared Transaction Offset, batch does not support transaction
+                // 14 Prepared Transaction Offset, demo5_batch does not support demo7_transaction
                 this.msgBatchMemory.putLong(0);
                 // 15 BODY
                 this.msgBatchMemory.putInt(bodyLen);

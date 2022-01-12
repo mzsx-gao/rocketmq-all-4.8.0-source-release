@@ -349,8 +349,8 @@ public class AsyncTraceDispatcher implements TraceDispatcher {
         /**
          * Send message trace data
          *
-         * @param keySet the keyset in this batch(including msgId in original message not offsetMsgId)
-         * @param data the message trace data in this batch
+         * @param keySet the keyset in this demo5_batch(including msgId in original message not offsetMsgId)
+         * @param data the message trace data in this demo5_batch
          */
         private void sendTraceDataByMQ(Set<String> keySet, final String data, String dataTopic, String regionId) {
             String traceTopic = traceTopicName;

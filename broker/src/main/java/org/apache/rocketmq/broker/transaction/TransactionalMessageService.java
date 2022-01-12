@@ -64,7 +64,7 @@ public interface TransactionalMessageService {
     OperationResult rollbackMessage(EndTransactionRequestHeader requestHeader);
 
     /**
-     * Traverse uncommitted/unroll back half message and send check back request to producer to obtain transaction
+     * Traverse uncommitted/unroll back half message and send check back request to producer to obtain demo7_transaction
      * status.
      *
      * @param transactionTimeout The minimum time of the transactional message to be checked firstly, one message only
@@ -77,14 +77,14 @@ public interface TransactionalMessageService {
     void check(long transactionTimeout, int transactionCheckMax, AbstractTransactionalMessageCheckListener listener);
 
     /**
-     * Open transaction service.
+     * Open demo7_transaction service.
      *
      * @return If open success, return true.
      */
     boolean open();
 
     /**
-     * Close transaction service.
+     * Close demo7_transaction service.
      */
     void close();
 }

@@ -59,14 +59,14 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
         LOGGER.debug("Transaction request:{}", requestHeader);
         if (BrokerRole.SLAVE == brokerController.getMessageStoreConfig().getBrokerRole()) {
             response.setCode(ResponseCode.SLAVE_NOT_AVAILABLE);
-            LOGGER.warn("Message store is slave mode, so end transaction is forbidden. ");
+            LOGGER.warn("Message store is slave mode, so end demo7_transaction is forbidden. ");
             return response;
         }
 
         if (requestHeader.getFromTransactionCheck()) {
             switch (requestHeader.getCommitOrRollback()) {
                 case MessageSysFlag.TRANSACTION_NOT_TYPE: {
-                    LOGGER.warn("Check producer[{}] transaction state, but it's pending status."
+                    LOGGER.warn("Check producer[{}] demo7_transaction state, but it's pending status."
                             + "RequestHeader: {} Remark: {}",
                         RemotingHelper.parseChannelRemoteAddr(ctx.channel()),
                         requestHeader.toString(),
@@ -75,7 +75,7 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
                 }
 
                 case MessageSysFlag.TRANSACTION_COMMIT_TYPE: {
-                    LOGGER.warn("Check producer[{}] transaction state, the producer commit the message."
+                    LOGGER.warn("Check producer[{}] demo7_transaction state, the producer commit the message."
                             + "RequestHeader: {} Remark: {}",
                         RemotingHelper.parseChannelRemoteAddr(ctx.channel()),
                         requestHeader.toString(),
@@ -85,7 +85,7 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
                 }
 
                 case MessageSysFlag.TRANSACTION_ROLLBACK_TYPE: {
-                    LOGGER.warn("Check producer[{}] transaction state, the producer rollback the message."
+                    LOGGER.warn("Check producer[{}] demo7_transaction state, the producer rollback the message."
                             + "RequestHeader: {} Remark: {}",
                         RemotingHelper.parseChannelRemoteAddr(ctx.channel()),
                         requestHeader.toString(),
@@ -98,7 +98,7 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
         } else {
             switch (requestHeader.getCommitOrRollback()) {
                 case MessageSysFlag.TRANSACTION_NOT_TYPE: {
-                    LOGGER.warn("The producer[{}] end transaction in sending message,  and it's pending status."
+                    LOGGER.warn("The producer[{}] end demo7_transaction in sending message,  and it's pending status."
                             + "RequestHeader: {} Remark: {}",
                         RemotingHelper.parseChannelRemoteAddr(ctx.channel()),
                         requestHeader.toString(),
@@ -111,7 +111,7 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
                 }
 
                 case MessageSysFlag.TRANSACTION_ROLLBACK_TYPE: {
-                    LOGGER.warn("The producer[{}] end transaction in sending message, rollback the message."
+                    LOGGER.warn("The producer[{}] end demo7_transaction in sending message, rollback the message."
                             + "RequestHeader: {} Remark: {}",
                         RemotingHelper.parseChannelRemoteAddr(ctx.channel()),
                         requestHeader.toString(),
@@ -174,7 +174,7 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
 
             if (msgExt.getQueueOffset() != requestHeader.getTranStateTableOffset()) {
                 response.setCode(ResponseCode.SYSTEM_ERROR);
-                response.setRemark("The transaction state table offset wrong");
+                response.setRemark("The demo7_transaction state table offset wrong");
                 return response;
             }
 
@@ -185,7 +185,7 @@ public class EndTransactionProcessor extends AsyncNettyRequestProcessor implemen
             }
         } else {
             response.setCode(ResponseCode.SYSTEM_ERROR);
-            response.setRemark("Find prepared transaction message failed");
+            response.setRemark("Find prepared demo7_transaction message failed");
             return response;
         }
         response.setCode(ResponseCode.SUCCESS);

@@ -43,7 +43,7 @@ public class CleanExpiredCQSubCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "cluster", true, "clustername");
+        opt = new Option("c", "demo8_cluster", true, "clustername");
         opt.setRequired(false);
         options.addOption(opt);
 

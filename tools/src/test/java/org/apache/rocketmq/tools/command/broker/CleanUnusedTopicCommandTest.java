@@ -78,7 +78,7 @@ public class CleanUnusedTopicCommandTest {
     public void testExecute() throws SubCommandException {
         CleanUnusedTopicCommand cmd = new CleanUnusedTopicCommand();
         Options options = ServerUtil.buildCommandlineOptions(new Options());
-        String[] subargs = new String[] {"-b 127.0.0.1:10911", "-c default-cluster"};
+        String[] subargs = new String[] {"-b 127.0.0.1:10911", "-c default-demo8_cluster"};
         final CommandLine commandLine =
             ServerUtil.parseCmdLine("mqadmin " + cmd.commandName(), subargs, cmd.buildCommandlineOptions(options), new PosixParser());
         cmd.execute(commandLine, options, null);

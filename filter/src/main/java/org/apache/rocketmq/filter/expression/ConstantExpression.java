@@ -20,7 +20,7 @@ package org.apache.rocketmq.filter.expression;
 /**
  * Represents a constant expression
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.ConstantExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.ConstantExpression,
  * but:
  * 1. For long type constant, the range bound by java Long type;
  * 2. For float type constant, the range bound by java Double type;

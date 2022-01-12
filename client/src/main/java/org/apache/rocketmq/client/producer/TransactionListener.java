@@ -21,7 +21,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 public interface TransactionListener {
     /**
-     * When send transactional prepare(half) message succeed, this method will be invoked to execute local transaction.
+     * When send transactional prepare(half) message succeed, this method will be invoked to execute local demo7_transaction.
      *
      * @param msg Half(prepare) message
      * @param arg Custom business parameter
@@ -30,8 +30,8 @@ public interface TransactionListener {
     LocalTransactionState executeLocalTransaction(final Message msg, final Object arg);
 
     /**
-     * When no response to prepare(half) message. broker will send check message to check the transaction status, and this
-     * method will be invoked to get local transaction status.
+     * When no response to prepare(half) message. broker will send check message to check the demo7_transaction status, and this
+     * method will be invoked to get local demo7_transaction status.
      *
      * @param msg Check message
      * @return Transaction state

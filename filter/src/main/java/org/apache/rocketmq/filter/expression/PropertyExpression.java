@@ -20,7 +20,7 @@ package org.apache.rocketmq.filter.expression;
 /**
  * Represents a property expression
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.PropertyExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.PropertyExpression,
  * but more simple and no transfer between expression and message property.
  * </p>
  */

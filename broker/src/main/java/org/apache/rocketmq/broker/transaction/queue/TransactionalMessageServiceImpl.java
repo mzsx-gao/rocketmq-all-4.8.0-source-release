@@ -458,7 +458,7 @@ public class TransactionalMessageServiceImpl implements TransactionalMessageServ
             response.setResponseCode(ResponseCode.SUCCESS);
         } else {
             response.setResponseCode(ResponseCode.SYSTEM_ERROR);
-            response.setResponseRemark("Find prepared transaction message failed");
+            response.setResponseRemark("Find prepared demo7_transaction message failed");
         }
         return response;
     }

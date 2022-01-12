@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Context of evaluate expression.
  *
- * Compare to org.apache.activemq.filter.MessageEvaluationContext, this is just an interface.
+ * Compare to org.apache.activemq.demo6_filter.MessageEvaluationContext, this is just an interface.
  */
 public interface EvaluationContext {
 

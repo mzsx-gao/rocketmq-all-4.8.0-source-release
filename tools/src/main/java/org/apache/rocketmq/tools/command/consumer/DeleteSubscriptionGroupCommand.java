@@ -46,7 +46,7 @@ public class DeleteSubscriptionGroupCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "delete subscription group from which cluster");
+        opt = new Option("c", "clusterName", true, "delete subscription group from which demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 
@@ -82,7 +82,7 @@ public class DeleteSubscriptionGroupCommand implements SubCommand {
                 for (String master : masterSet) {
                     adminExt.deleteSubscriptionGroup(master, groupName);
                     System.out.printf(
-                        "delete subscription group [%s] from broker [%s] in cluster [%s] success.%n",
+                        "delete subscription group [%s] from broker [%s] in demo8_cluster [%s] success.%n",
                         groupName, master, clusterName);
                 }
 

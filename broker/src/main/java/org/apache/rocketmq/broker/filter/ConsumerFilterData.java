@@ -53,7 +53,7 @@ public class ConsumerFilterData {
     }
 
     /**
-     * Check this filter data has been used to calculate bit map when msg was stored in server.
+     * Check this demo6_filter data has been used to calculate bit map when msg was stored in server.
      */
     public boolean isMsgInLive(long msgStoreTime) {
         return msgStoreTime > getBornTime();

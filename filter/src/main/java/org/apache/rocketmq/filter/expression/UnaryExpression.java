@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * An expression which performs an operation on two expression values
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.UnaryExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.UnaryExpression,
  * but:
  * 1. remove XPath and XQuery expression;
  * 2. Add constant UnaryType to distinguish different unary expression;

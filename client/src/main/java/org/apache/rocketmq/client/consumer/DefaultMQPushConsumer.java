@@ -53,7 +53,7 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
  * arrival of messages pulled from brokers, it roughly invokes the registered callback handler to feed the messages.
  * </p>
  *
- * See quickstart/Consumer in the example module for a typical usage.
+ * See demo1_quickstart/Consumer in the example module for a typical usage.
  * </p>
  *
  * <p>
@@ -762,7 +762,7 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
      * Subscribe a topic to consuming subscription.
      *
      * @param topic topic to consume.
-     * @param fullClassName full class name,must extend org.apache.rocketmq.common.filter. MessageFilter
+     * @param fullClassName full class name,must extend org.apache.rocketmq.common.demo6_filter. MessageFilter
      * @param filterClassSource class source code,used UTF-8 file encoding,must be responsible for your code safety
      */
     @Override

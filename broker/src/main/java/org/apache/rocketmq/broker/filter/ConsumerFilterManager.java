@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Consumer filter data manager.Just manage the consumers use expression filter.
+ * Consumer demo6_filter data manager.Just manage the consumers use expression demo6_filter.
  */
 public class ConsumerFilterManager extends ConfigManager {
 
@@ -70,7 +70,7 @@ public class ConsumerFilterManager extends ConfigManager {
     }
 
     /**
-     * Build consumer filter data.Be care, bloom filter data is not included.
+     * Build consumer demo6_filter data.Be care, bloom demo6_filter data is not included.
      *
      * @return maybe null
      */
@@ -129,7 +129,7 @@ public class ConsumerFilterManager extends ConfigManager {
 
             if (!exist && !filterData.isDead()) {
                 filterData.setDeadTime(System.currentTimeMillis());
-                log.info("Consumer filter changed: {}, make illegal topic dead:{}", consumerGroup, filterData);
+                log.info("Consumer demo6_filter changed: {}, make illegal topic dead:{}", consumerGroup, filterData);
             }
         }
     }
@@ -249,18 +249,18 @@ public class ConsumerFilterManager extends ConfigManager {
                             FilterFactory.INSTANCE.get(filterData.getExpressionType()).compile(filterData.getExpression())
                         );
                     } catch (Exception e) {
-                        log.error("load filter data error, " + filterData, e);
+                        log.error("load demo6_filter data error, " + filterData, e);
                     }
 
-                    // check whether bloom filter is changed
+                    // check whether bloom demo6_filter is changed
                     // if changed, ignore the bit map calculated before.
                     if (!this.bloomFilter.isValid(filterData.getBloomFilterData())) {
                         bloomChanged = true;
-                        log.info("Bloom filter is changed!So ignore all filter data persisted! {}, {}", this.bloomFilter, filterData.getBloomFilterData());
+                        log.info("Bloom demo6_filter is changed!So ignore all demo6_filter data persisted! {}, {}", this.bloomFilter, filterData.getBloomFilterData());
                         break;
                     }
 
-                    log.info("load exist consumer filter data: {}", filterData);
+                    log.info("load exist consumer demo6_filter data: {}", filterData);
 
                     if (filterData.getDeadTime() == 0) {
                         // we think all consumers are dead when load
@@ -300,7 +300,7 @@ public class ConsumerFilterManager extends ConfigManager {
 
                 ConsumerFilterData filterData = filterDataByGroup.getValue();
                 if (filterData.howLongAfterDeath() >= (this.brokerController == null ? MS_24_HOUR : this.brokerController.getBrokerConfig().getFilterDataCleanTimeSpan())) {
-                    log.info("Remove filter consumer {}, died too long!", filterDataByGroup.getValue());
+                    log.info("Remove demo6_filter consumer {}, died too long!", filterDataByGroup.getValue());
                     filterDataIterator.remove();
                 }
             }
@@ -347,7 +347,7 @@ public class ConsumerFilterManager extends ConfigManager {
 
             long now = System.currentTimeMillis();
 
-            log.info("Unregister consumer filter: {}, deadTime: {}", data, now);
+            log.info("Unregister consumer demo6_filter: {}, deadTime: {}", data, now);
 
             data.setDeadTime(now);
         }
@@ -365,12 +365,12 @@ public class ConsumerFilterManager extends ConfigManager {
 
                 old = this.groupFilterData.putIfAbsent(consumerGroup, consumerFilterData);
                 if (old == null) {
-                    log.info("New consumer filter registered: {}", consumerFilterData);
+                    log.info("New consumer demo6_filter registered: {}", consumerFilterData);
                     return true;
                 } else {
                     if (clientVersion <= old.getClientVersion()) {
                         if (!type.equals(old.getExpressionType()) || !expression.equals(old.getExpression())) {
-                            log.warn("Ignore consumer({} : {}) filter(concurrent), because of version {} <= {}, but maybe info changed!old={}:{}, ignored={}:{}",
+                            log.warn("Ignore consumer({} : {}) demo6_filter(concurrent), because of version {} <= {}, but maybe info changed!old={}:{}, ignored={}:{}",
                                 consumerGroup, topic,
                                 clientVersion, old.getClientVersion(),
                                 old.getExpressionType(), old.getExpression(),
@@ -384,14 +384,14 @@ public class ConsumerFilterManager extends ConfigManager {
                         return false;
                     } else {
                         this.groupFilterData.put(consumerGroup, consumerFilterData);
-                        log.info("New consumer filter registered(concurrent): {}, old: {}", consumerFilterData, old);
+                        log.info("New consumer demo6_filter registered(concurrent): {}, old: {}", consumerFilterData, old);
                         return true;
                     }
                 }
             } else {
                 if (clientVersion <= old.getClientVersion()) {
                     if (!type.equals(old.getExpressionType()) || !expression.equals(old.getExpression())) {
-                        log.info("Ignore consumer({}:{}) filter, because of version {} <= {}, but maybe info changed!old={}:{}, ignored={}:{}",
+                        log.info("Ignore consumer({}:{}) demo6_filter, because of version {} <= {}, but maybe info changed!old={}:{}, ignored={}:{}",
                             consumerGroup, topic,
                             clientVersion, old.getClientVersion(),
                             old.getExpressionType(), old.getExpression(),
@@ -425,7 +425,7 @@ public class ConsumerFilterManager extends ConfigManager {
 
                     this.groupFilterData.put(consumerGroup, consumerFilterData);
 
-                    log.info("Consumer filter info change, old: {}, new: {}, change: {}",
+                    log.info("Consumer demo6_filter info change, old: {}, new: {}, change: {}",
                         old, consumerFilterData, change);
 
                     return true;
@@ -442,7 +442,7 @@ public class ConsumerFilterManager extends ConfigManager {
         protected void reAlive(ConsumerFilterData filterData) {
             long oldDeadTime = filterData.getDeadTime();
             filterData.setDeadTime(0);
-            log.info("Re alive consumer filter: {}, oldDeadTime: {}", filterData, oldDeadTime);
+            log.info("Re alive consumer demo6_filter: {}, oldDeadTime: {}", filterData, oldDeadTime);
         }
 
         public final ConsumerFilterData get(String consumerGroup) {

@@ -20,9 +20,9 @@ package org.apache.rocketmq.filter.expression;
 import java.util.List;
 
 /**
- * A filter performing a comparison of two objects
+ * A demo6_filter performing a comparison of two objects
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.ComparisonExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.ComparisonExpression,
  * but:
  * 1. Remove LIKE expression, and related methods;
  * 2. Extract a new method __compare which has int return value;

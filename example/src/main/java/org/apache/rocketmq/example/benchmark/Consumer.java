@@ -140,7 +140,7 @@ public class Consumer {
                 System.out.printf("Expression: %s%n", expr);
                 consumer.subscribe(topic, MessageSelector.bySql(expr));
             } else {
-                throw new IllegalArgumentException("Not support filter type! " + filterType);
+                throw new IllegalArgumentException("Not support demo6_filter type! " + filterType);
             }
         }
 
@@ -198,7 +198,7 @@ public class Consumer {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("e", "expression", true, "filter expression content file path.ie: ./test/expr");
+        opt = new Option("e", "expression", true, "demo6_filter expression content file path.ie: ./test/expr");
         opt.setRequired(false);
         options.addOption(opt);
 

@@ -441,8 +441,8 @@ public class MQClientInstance {
                 if (ExpressionType.isTagType(subscriptionData.getExpressionType())) {
                     continue;
                 }
-                // may need to check one broker every cluster...
-                // assume that the configs of every broker in cluster are the the same.
+                // may need to check one broker every demo8_cluster...
+                // assume that the configs of every broker in demo8_cluster are the the same.
                 String addr = findBrokerAddrByTopic(subscriptionData.getTopic());
 
                 if (addr != null) {
@@ -455,7 +455,7 @@ public class MQClientInstance {
                             throw (MQClientException) e;
                         } else {
                             throw new MQClientException("Check client in broker error, maybe because you use "
-                                + subscriptionData.getExpressionType() + " to filter message, but server has not been upgraded to support!"
+                                + subscriptionData.getExpressionType() + " to demo6_filter message, but server has not been upgraded to support!"
                                 + "This error would not affect the launch of consumer, but may has impact on message receiving if you " +
                                 "have use the new features which are not supported by server, please check the log!", e);
                         }
@@ -775,7 +775,7 @@ public class MQClientInstance {
                         this.mQClientAPIImpl.registerMessageFilterClass(fsAddr, consumerGroup, topic, fullClassName, classCRC, classBody,
                             5000);
 
-                        log.info("register message class filter to {} OK, ConsumerGroup: {} Topic: {} ClassName: {}", fsAddr, consumerGroup,
+                        log.info("register message class demo6_filter to {} OK, ConsumerGroup: {} Topic: {} ClassName: {}", fsAddr, consumerGroup,
                             topic, fullClassName);
 
                     } catch (Exception e) {
@@ -784,7 +784,7 @@ public class MQClientInstance {
                 }
             }
         } else {
-            log.warn("register message class filter failed, because no filter server, ConsumerGroup: {} Topic: {} ClassName: {}",
+            log.warn("register message class demo6_filter failed, because no demo6_filter server, ConsumerGroup: {} Topic: {} ClassName: {}",
                 consumerGroup, topic, fullClassName);
         }
     }

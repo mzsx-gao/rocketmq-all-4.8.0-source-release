@@ -311,7 +311,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * delivered to broker(s). It's up to the application developers to resolve potential duplication issue.
      *
      * @param msg Message to send.
-     * @return {@link SendResult} instance to inform senders details of the deliverable, say Message ID of the message,
+     * @return {@link SendResult} instance to inform senders demo3_details of the deliverable, say Message ID of the message,
      * {@link SendStatus} indicating broker storage/replication status, message queue sent to, etc.
      * @throws MQClientException if there is any client error.
      * @throws RemotingException if there is any network-tier error.
@@ -331,7 +331,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * @param msg Message to send.
      * @param timeout send timeout.
-     * @return {@link SendResult} instance to inform senders details of the deliverable, say Message ID of the message,
+     * @return {@link SendResult} instance to inform senders demo3_details of the deliverable, say Message ID of the message,
      * {@link SendStatus} indicating broker storage/replication status, message queue sent to, etc.
      * @throws MQClientException if there is any client error.
      * @throws RemotingException if there is any network-tier error.
@@ -404,7 +404,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * @param msg Message to send.
      * @param mq Target message queue.
-     * @return {@link SendResult} instance to inform senders details of the deliverable, say Message ID of the message,
+     * @return {@link SendResult} instance to inform senders demo3_details of the deliverable, say Message ID of the message,
      * {@link SendStatus} indicating broker storage/replication status, message queue sent to, etc.
      * @throws MQClientException if there is any client error.
      * @throws RemotingException if there is any network-tier error.
@@ -424,7 +424,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @param msg Message to send.
      * @param mq Target message queue.
      * @param timeout send timeout.
-     * @return {@link SendResult} instance to inform senders details of the deliverable, say Message ID of the message,
+     * @return {@link SendResult} instance to inform senders demo3_details of the deliverable, say Message ID of the message,
      * {@link SendStatus} indicating broker storage/replication status, message queue sent to, etc.
      * @throws MQClientException if there is any client error.
      * @throws RemotingException if there is any network-tier error.
@@ -495,7 +495,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @param msg Message to send.
      * @param selector Message queue selector, through which we get target message queue to deliver message to.
      * @param arg Argument to work along with message queue selector.
-     * @return {@link SendResult} instance to inform senders details of the deliverable, say Message ID of the message,
+     * @return {@link SendResult} instance to inform senders demo3_details of the deliverable, say Message ID of the message,
      * {@link SendStatus} indicating broker storage/replication status, message queue sent to, etc.
      * @throws MQClientException if there is any client error.
      * @throws RemotingException if there is any network-tier error.
@@ -516,7 +516,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * @param selector Message queue selector, through which we get target message queue to deliver message to.
      * @param arg Argument to work along with message queue selector.
      * @param timeout Send timeout.
-     * @return {@link SendResult} instance to inform senders details of the deliverable, say Message ID of the message,
+     * @return {@link SendResult} instance to inform senders demo3_details of the deliverable, say Message ID of the message,
      * {@link SendStatus} indicating broker storage/replication status, message queue sent to, etc.
      * @throws MQClientException if there is any client error.
      * @throws RemotingException if there is any network-tier error.
@@ -715,8 +715,8 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * This method is to send transactional messages.
      *
      * @param msg Transactional message to send.
-     * @param tranExecuter local transaction executor.
-     * @param arg Argument used along with local transaction executor.
+     * @param tranExecuter local demo7_transaction executor.
+     * @param arg Argument used along with local demo7_transaction executor.
      * @return Transaction result.
      * @throws MQClientException if there is any client error.
      */
@@ -731,7 +731,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      * This method is used to send transactional messages.
      *
      * @param msg Transactional message to send.
-     * @param arg Argument used along with local transaction executor.
+     * @param arg Argument used along with local demo7_transaction executor.
      * @return Transaction result.
      * @throws MQClientException
      */

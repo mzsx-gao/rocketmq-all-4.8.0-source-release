@@ -48,15 +48,15 @@ case $1 in
 
     pid=`ps ax | grep -i 'org.apache.rocketmq.example.benchmark.TransactionProducer' |grep java | grep -v grep | awk '{print $1}'`
     if [ -z "$pid" ] ; then
-            echo "No benchmark transaction producer running."
+            echo "No benchmark demo7_transaction producer running."
             exit -1;
     fi
 
-    echo "The benchmkar transaction producer(${pid}) is running..."
+    echo "The benchmkar demo7_transaction producer(${pid}) is running..."
 
     kill ${pid}
 
-    echo "Send shutdown request to benchmark transaction producer(${pid}) OK"
+    echo "Send shutdown request to benchmark demo7_transaction producer(${pid}) OK"
     ;;
     *)
     echo "Useage: shutdown producer | consumer | tproducer"

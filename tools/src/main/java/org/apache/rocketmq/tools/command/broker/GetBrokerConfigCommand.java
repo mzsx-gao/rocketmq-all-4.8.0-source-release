@@ -43,7 +43,7 @@ public class GetBrokerConfigCommand implements SubCommand {
 
     @Override
     public String commandDesc() {
-        return "Get broker config by cluster or special broker!";
+        return "Get broker config by demo8_cluster or special broker!";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GetBrokerConfigCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "get which cluster");
+        opt = new Option("c", "clusterName", true, "get which demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 

@@ -49,7 +49,7 @@ public class UpdateTopicSubCommand implements SubCommand {
         Option opt = new Option("b", "brokerAddr", true, "create topic to which broker");
         optionGroup.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "create topic to which cluster");
+        opt = new Option("c", "clusterName", true, "create topic to which demo8_cluster");
         optionGroup.addOption(opt);
 
         optionGroup.setRequired(true);
@@ -173,7 +173,7 @@ public class UpdateTopicSubCommand implements SubCommand {
                     }
                     defaultMQAdminExt.createOrUpdateOrderConf(topicConfig.getTopicName(),
                         orderConf.toString(), true);
-                    System.out.printf("set cluster orderConf. isOrder=%s, orderConf=[%s]", isOrder, orderConf);
+                    System.out.printf("set demo8_cluster orderConf. isOrder=%s, orderConf=[%s]", isOrder, orderConf);
                 }
 
                 System.out.printf("%s", topicConfig);

@@ -30,7 +30,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Calculate bit map of filter.
+ * Calculate bit map of demo6_filter.
  */
 public class CommitLogDispatcherCalcBitMap implements CommitLogDispatcher {
 
@@ -68,12 +68,12 @@ public class CommitLogDispatcherCalcBitMap implements CommitLogDispatcher {
                 ConsumerFilterData filterData = iterator.next();
 
                 if (filterData.getCompiledExpression() == null) {
-                    log.error("[BUG] Consumer in filter manager has no compiled expression! {}", filterData);
+                    log.error("[BUG] Consumer in demo6_filter manager has no compiled expression! {}", filterData);
                     continue;
                 }
 
                 if (filterData.getBloomFilterData() == null) {
-                    log.error("[BUG] Consumer in filter manager has no bloom data! {}", filterData);
+                    log.error("[BUG] Consumer in demo6_filter manager has no bloom data! {}", filterData);
                     continue;
                 }
 
@@ -83,7 +83,7 @@ public class CommitLogDispatcherCalcBitMap implements CommitLogDispatcher {
 
                     ret = filterData.getCompiledExpression().evaluate(context);
                 } catch (Throwable e) {
-                    log.error("Calc filter bit map error!commitLogOffset={}, consumer={}, {}", request.getCommitLogOffset(), filterData, e);
+                    log.error("Calc demo6_filter bit map error!commitLogOffset={}, consumer={}, {}", request.getCommitLogOffset(), filterData, e);
                 }
 
                 log.debug("Result of Calc bit map:ret={}, data={}, props={}, offset={}", ret, filterData, request.getPropertiesMap(), request.getCommitLogOffset());

@@ -20,7 +20,7 @@ package org.apache.rocketmq.filter.expression;
 /**
  * An expression which performs an operation on two expression values.
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.BinaryExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.BinaryExpression,
  * </p>
  */
 public abstract class BinaryExpression implements Expression {

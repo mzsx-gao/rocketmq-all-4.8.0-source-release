@@ -67,8 +67,8 @@ public interface MessageStore {
     }
 
     /**
-     * Store a batch of messages in async manner
-     * @param messageExtBatch the message batch
+     * Store a demo5_batch of messages in async manner
+     * @param messageExtBatch the message demo5_batch
      * @return a CompletableFuture for the result of store operation
      */
     default CompletableFuture<PutMessageResult> asyncPutMessages(final MessageExtBatch messageExtBatch) {
@@ -84,23 +84,23 @@ public interface MessageStore {
     PutMessageResult putMessage(final MessageExtBrokerInner msg);
 
     /**
-     * Store a batch of messages.
+     * Store a demo5_batch of messages.
      *
-     * @param messageExtBatch Message batch.
-     * @return result of storing batch messages.
+     * @param messageExtBatch Message demo5_batch.
+     * @return result of storing demo5_batch messages.
      */
     PutMessageResult putMessages(final MessageExtBatch messageExtBatch);
 
     /**
      * Query at most <code>maxMsgNums</code> messages belonging to <code>topic</code> at <code>queueId</code> starting
-     * from given <code>offset</code>. Resulting messages will further be screened using provided message filter.
+     * from given <code>offset</code>. Resulting messages will further be screened using provided message demo6_filter.
      *
      * @param group Consumer group that launches this query.
      * @param topic Topic to query.
      * @param queueId Queue ID to query.
      * @param offset Logical offset to start from.
      * @param maxMsgNums Maximum count of messages to query.
-     * @param messageFilter Message filter used to screen desired messages.
+     * @param messageFilter Message demo6_filter used to screen desired messages.
      * @return Matched messages.
      */
     GetMessageResult getMessage(final String group, final String topic, final int queueId,

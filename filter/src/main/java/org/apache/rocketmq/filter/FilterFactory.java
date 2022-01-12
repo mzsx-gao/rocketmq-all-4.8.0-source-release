@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Filter factory: support other filter to register.
+ * Filter factory: support other demo6_filter to register.
  */
 public class FilterFactory {
 
@@ -34,7 +34,7 @@ public class FilterFactory {
     }
 
     /**
-     * Register a filter.
+     * Register a demo6_filter.
      * <br>
      * Note:
      * <li>1. Filter registered will be used in broker server, so take care of it's reliability and performance.</li>
@@ -48,14 +48,14 @@ public class FilterFactory {
     }
 
     /**
-     * Un register a filter.
+     * Un register a demo6_filter.
      */
     public FilterSpi unRegister(String type) {
         return FILTER_SPI_HOLDER.remove(type);
     }
 
     /**
-     * Get a filter registered, null if none exist.
+     * Get a demo6_filter registered, null if none exist.
      */
     public FilterSpi get(String type) {
         return FILTER_SPI_HOLDER.get(type);

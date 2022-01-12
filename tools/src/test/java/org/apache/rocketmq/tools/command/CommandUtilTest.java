@@ -71,14 +71,14 @@ public class CommandUtilTest {
         brokerAddrs.put(1234l, "127.0.0.1:10911");
         BrokerData brokerData = new BrokerData();
         brokerData.setBrokerName("default-broker");
-        brokerData.setCluster("default-cluster");
+        brokerData.setCluster("default-demo8_cluster");
         brokerData.setBrokerAddrs(brokerAddrs);
         brokerAddrTable.put("default-broker", brokerData);
         brokerAddrTable.put("broker-test", new BrokerData());
         Set<String> brokerSet = new HashSet<>();
         brokerSet.add("default-broker");
         brokerSet.add("default-broker-one");
-        clusterAddrTable.put("default-cluster", brokerSet);
+        clusterAddrTable.put("default-demo8_cluster", brokerSet);
         clusterInfo.setBrokerAddrTable(brokerAddrTable);
         clusterInfo.setClusterAddrTable(clusterAddrTable);
         when(mQClientAPIImpl.getBrokerClusterInfo(anyLong())).thenReturn(clusterInfo);
@@ -91,19 +91,19 @@ public class CommandUtilTest {
 
     @Test
     public void testFetchMasterAndSlaveDistinguish() throws InterruptedException, MQBrokerException, RemotingTimeoutException, RemotingSendRequestException, RemotingConnectException {
-        Map<String, List<String>> result = CommandUtil.fetchMasterAndSlaveDistinguish(defaultMQAdminExtImpl, "default-cluster");
+        Map<String, List<String>> result = CommandUtil.fetchMasterAndSlaveDistinguish(defaultMQAdminExtImpl, "default-demo8_cluster");
         assertThat(result.get(null).get(0)).isEqualTo("127.0.0.1:10911");
     }
 
     @Test
     public void testFetchMasterAddrByClusterName() throws InterruptedException, MQBrokerException, RemotingTimeoutException, RemotingSendRequestException, RemotingConnectException {
-        Set<String> result = CommandUtil.fetchMasterAddrByClusterName(defaultMQAdminExtImpl, "default-cluster");
+        Set<String> result = CommandUtil.fetchMasterAddrByClusterName(defaultMQAdminExtImpl, "default-demo8_cluster");
         assertThat(result.size()).isEqualTo(0);
     }
 
     @Test
     public void testFetchBrokerNameByClusterName() throws Exception {
-        Set<String> result = CommandUtil.fetchBrokerNameByClusterName(defaultMQAdminExtImpl, "default-cluster");
+        Set<String> result = CommandUtil.fetchBrokerNameByClusterName(defaultMQAdminExtImpl, "default-demo8_cluster");
         assertThat(result.contains("default-broker")).isTrue();
         assertThat(result.contains("default-broker-one")).isTrue();
         assertThat(result.size()).isEqualTo(2);

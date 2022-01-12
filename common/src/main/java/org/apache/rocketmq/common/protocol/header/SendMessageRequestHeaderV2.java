@@ -52,7 +52,7 @@ public class SendMessageRequestHeaderV2 implements CommandCustomHeader {
     private Integer l; // consumeRetryTimes
 
     @CFNullable
-    private boolean m; //batch
+    private boolean m; //demo5_batch
 
     public static SendMessageRequestHeader createSendMessageRequestHeaderV1(final SendMessageRequestHeaderV2 v2) {
         SendMessageRequestHeader v1 = new SendMessageRequestHeader();

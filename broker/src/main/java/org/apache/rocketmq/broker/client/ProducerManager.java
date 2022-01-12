@@ -140,7 +140,7 @@ public class ProducerManager {
         if (channelClientChannelInfoHashMap != null) {
             channelList = new ArrayList<>(channelClientChannelInfoHashMap.keySet());
         } else {
-            log.warn("Check transaction failed, channel table is empty. groupId={}", groupId);
+            log.warn("Check demo7_transaction failed, channel table is empty. groupId={}", groupId);
             return null;
         }
 

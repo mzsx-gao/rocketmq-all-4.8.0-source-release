@@ -170,7 +170,7 @@ public class PullAPIWrapper {
                 if (!ExpressionType.isTagType(expressionType)
                     && findBrokerResult.getBrokerVersion() < MQVersion.Version.V4_1_0_SNAPSHOT.ordinal()) {
                     throw new MQClientException("The broker[" + mq.getBrokerName() + ", "
-                        + findBrokerResult.getBrokerVersion() + "] does not upgrade to support for filter message by " + expressionType, null);
+                        + findBrokerResult.getBrokerVersion() + "] does not upgrade to support for demo6_filter message by " + expressionType, null);
                 }
             }
             int sysFlagInner = sysFlag;

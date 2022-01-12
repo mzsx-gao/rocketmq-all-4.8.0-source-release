@@ -43,7 +43,7 @@ public class CleanUnusedTopicCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "cluster", true, "cluster name");
+        opt = new Option("c", "demo8_cluster", true, "demo8_cluster name");
         opt.setRequired(false);
         options.addOption(opt);
 

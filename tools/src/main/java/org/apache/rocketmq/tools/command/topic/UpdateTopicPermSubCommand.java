@@ -53,7 +53,7 @@ public class UpdateTopicPermSubCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "create topic to which cluster");
+        opt = new Option("c", "clusterName", true, "create topic to which demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 

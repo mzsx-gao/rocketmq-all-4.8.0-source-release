@@ -44,13 +44,13 @@ import org.apache.rocketmq.common.message.Message;
 public class ScheduledMessageProducer {
 
     public static void main(String[] args) throws Exception {
-        // Instantiate a producer to send scheduled messages
+        demo4_scheduled
         DefaultMQProducer producer = new DefaultMQProducer("ExampleProducerGroup");
         // Launch producer
         producer.start();
         int totalMessagesToSend = 100;
         for (int i = 0; i < totalMessagesToSend; i++) {
-            Message message = new Message("TestTopic", ("Hello scheduled message " + i).getBytes());
+            Message message = new Message("TestTopic", (demo4_scheduled + i).getBytes());
             // This message will be delivered to consumer 10 seconds later.
             message.setDelayTimeLevel(3);
             // Send the message

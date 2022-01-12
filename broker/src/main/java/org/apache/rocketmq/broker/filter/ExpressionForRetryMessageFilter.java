@@ -27,7 +27,7 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 
 /**
- * Support filter to retry topic.
+ * Support demo6_filter to retry topic.
  * <br>It will decode properties first in order to get real topic.
  */
 public class ExpressionForRetryMessageFilter extends ExpressionMessageFilter {
@@ -56,8 +56,8 @@ public class ExpressionForRetryMessageFilter extends ExpressionMessageFilter {
         Map<String, String> tempProperties = properties;
         boolean decoded = false;
         if (isRetryTopic) {
-            // retry topic, use original filter data.
-            // poor performance to support retry filter.
+            // retry topic, use original demo6_filter data.
+            // poor performance to support retry demo6_filter.
             if (tempProperties == null && msgBuffer != null) {
                 decoded = true;
                 tempProperties = MessageDecoder.decodeProperties(msgBuffer);

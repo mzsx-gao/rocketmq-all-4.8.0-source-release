@@ -299,7 +299,7 @@ public class SendMessageProcessor extends AbstractSendMessageProcessor implement
                 response.setCode(ResponseCode.NO_PERMISSION);
                 response.setRemark(
                         "the broker[" + this.brokerController.getBrokerConfig().getBrokerIP1()
-                                + "] sending transaction message is forbidden");
+                                + "] sending demo7_transaction message is forbidden");
                 return CompletableFuture.completedFuture(response);
             }
             //事务消息的Prepare消息
@@ -432,7 +432,7 @@ public class SendMessageProcessor extends AbstractSendMessageProcessor implement
                 response.setCode(ResponseCode.NO_PERMISSION);
                 response.setRemark(
                         "the broker[" + this.brokerController.getBrokerConfig().getBrokerIP1()
-                                + "] sending transaction message is forbidden");
+                                + "] sending demo7_transaction message is forbidden");
                 return response;
             }
             putMessageResult = this.brokerController.getTransactionalMessageService().prepareMessage(msgInner);

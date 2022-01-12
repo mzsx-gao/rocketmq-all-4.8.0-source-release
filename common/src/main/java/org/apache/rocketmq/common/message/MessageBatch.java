@@ -55,10 +55,10 @@ public class MessageBatch extends Message implements Iterable<Message> {
                 first = message;
             } else {
                 if (!first.getTopic().equals(message.getTopic())) {
-                    throw new UnsupportedOperationException("The topic of the messages in one batch should be the same");
+                    throw new UnsupportedOperationException("The topic of the messages in one demo5_batch should be the same");
                 }
                 if (first.isWaitStoreMsgOK() != message.isWaitStoreMsgOK()) {
-                    throw new UnsupportedOperationException("The waitStoreMsgOK of the messages in one batch should the same");
+                    throw new UnsupportedOperationException("The waitStoreMsgOK of the messages in one demo5_batch should the same");
                 }
             }
             messageList.add(message);

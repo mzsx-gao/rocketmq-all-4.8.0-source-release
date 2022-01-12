@@ -340,7 +340,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
                         if (transactionCheckListener != null) {
                             localTransactionState = transactionCheckListener.checkLocalTransactionState(message);
                         } else if (transactionListener != null) {
-                            log.debug("Used new check API in transaction message");
+                            log.debug("Used new check API in demo7_transaction message");
                             localTransactionState = transactionListener.checkLocalTransaction(message);
                         } else {
                             log.warn("CheckTransactionState, pick transactionListener by group[{}] failed", group);
@@ -381,11 +381,11 @@ public class DefaultMQProducerImpl implements MQProducerInner {
                         break;
                     case ROLLBACK_MESSAGE:
                         thisHeader.setCommitOrRollback(MessageSysFlag.TRANSACTION_ROLLBACK_TYPE);
-                        log.warn("when broker check, client rollback this transaction, {}", thisHeader);
+                        log.warn("when broker check, client rollback this demo7_transaction, {}", thisHeader);
                         break;
                     case UNKNOW:
                         thisHeader.setCommitOrRollback(MessageSysFlag.TRANSACTION_NOT_TYPE);
-                        log.warn("when broker check, client does not know this transaction state, {}", thisHeader);
+                        log.warn("when broker check, client does not know this demo7_transaction state, {}", thisHeader);
                         break;
                     default:
                         break;
@@ -926,7 +926,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
 
     private boolean tryToCompressMessage(final Message msg) {
         if (msg instanceof MessageBatch) {
-            //batch dose not support compressing right now
+            //demo5_batch dose not support compressing right now
             return false;
         }
         byte[] body = msg.getBody();
@@ -1259,7 +1259,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
                     if (null != localTransactionExecuter) {
                         localTransactionState = localTransactionExecuter.executeLocalTransactionBranch(msg, arg);
                     } else if (transactionListener != null) {
-                        log.debug("Used new transaction API");
+                        log.debug("Used new demo7_transaction API");
                         localTransactionState = transactionListener.executeLocalTransaction(msg, arg);
                     }
                     if (null == localTransactionState) {
@@ -1289,7 +1289,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
         try {
             this.endTransaction(sendResult, localTransactionState, localException);
         } catch (Exception e) {
-            log.warn("local transaction execute " + localTransactionState + ", but end broker transaction failed", e);
+            log.warn("local demo7_transaction execute " + localTransactionState + ", but end broker demo7_transaction failed", e);
         }
 
         TransactionSendResult transactionSendResult = new TransactionSendResult();

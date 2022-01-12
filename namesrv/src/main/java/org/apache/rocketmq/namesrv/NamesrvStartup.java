@@ -41,6 +41,9 @@ import org.apache.rocketmq.srvutil.ServerUtil;
 import org.apache.rocketmq.srvutil.ShutdownHookThread;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 启动时加上环境变量 ROCKETMQ_HOME=/Users/gaoshudian/data/rocketmq
+ */
 public class NamesrvStartup {
 
     private static InternalLogger log;
@@ -145,6 +148,7 @@ public class NamesrvStartup {
             throw new IllegalArgumentException("NamesrvController is null");
         }
         //初始化NamesrvController，开启定时任务:每隔10s扫描一次Broker,移除不活跃的Broker
+        System.out.println("初始化NamesrvController，开启定时任务:每隔10s扫描一次Broker,移除不活跃的Broker");
         boolean initResult = controller.initialize();
         if (!initResult) {
             controller.shutdown();

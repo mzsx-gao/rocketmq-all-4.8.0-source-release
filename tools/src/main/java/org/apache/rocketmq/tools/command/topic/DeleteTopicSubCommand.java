@@ -40,7 +40,7 @@ public class DeleteTopicSubCommand implements SubCommand {
 
         Set<String> brokerAddressSet = CommandUtil.fetchMasterAndSlaveAddrByClusterName(adminExt, clusterName);
         adminExt.deleteTopicInBroker(brokerAddressSet, topic);
-        System.out.printf("delete topic [%s] from cluster [%s] success.%n", topic, clusterName);
+        System.out.printf("delete topic [%s] from demo8_cluster [%s] success.%n", topic, clusterName);
 
         Set<String> nameServerSet = null;
         if (adminExt.getNamesrvAddr() != null) {
@@ -68,7 +68,7 @@ public class DeleteTopicSubCommand implements SubCommand {
         opt.setRequired(true);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "delete topic from which cluster");
+        opt = new Option("c", "clusterName", true, "delete topic from which demo8_cluster");
         opt.setRequired(true);
         options.addOption(opt);
 

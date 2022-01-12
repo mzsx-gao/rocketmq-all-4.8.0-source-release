@@ -46,7 +46,7 @@ public class UpdateBrokerConfigSubCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "update which cluster");
+        opt = new Option("c", "clusterName", true, "update which demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 

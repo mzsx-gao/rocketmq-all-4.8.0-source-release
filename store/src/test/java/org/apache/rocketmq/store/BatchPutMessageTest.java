@@ -88,7 +88,7 @@ public class BatchPutMessageTest {
         short batchPropLen = (short) messageProperties2String(batchProp).getBytes(MessageDecoder.CHARSET_UTF8).length;
 
         List<Message> messages = new ArrayList<>();
-        String topic = "batch-write-topic";
+        String topic = "demo5_batch-write-topic";
         int queue = 0;
         int[] msgLengthArr = new int[11];
         msgLengthArr[0] = 0;
@@ -137,7 +137,7 @@ public class BatchPutMessageTest {
     @Test
     public void testPutIPv6HostMessages() throws Exception {
         List<Message> messages = new ArrayList<>();
-        String topic = "batch-write-topic";
+        String topic = "demo5_batch-write-topic";
         int queue = 0;
         int[] msgLengthArr = new int[11];
         msgLengthArr[0] = 0;

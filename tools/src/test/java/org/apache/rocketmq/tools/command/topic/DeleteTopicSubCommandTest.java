@@ -29,10 +29,10 @@ public class DeleteTopicSubCommandTest {
     public void testExecute() {
         DeleteTopicSubCommand cmd = new DeleteTopicSubCommand();
         Options options = ServerUtil.buildCommandlineOptions(new Options());
-        String[] subargs = new String[] {"-t unit-test", "-c default-cluster"};
+        String[] subargs = new String[] {"-t unit-test", "-c default-demo8_cluster"};
         final CommandLine commandLine =
             ServerUtil.parseCmdLine("mqadmin " + cmd.commandName(), subargs, cmd.buildCommandlineOptions(options), new PosixParser());
         assertThat(commandLine.getOptionValue('t').trim()).isEqualTo("unit-test");
-        assertThat(commandLine.getOptionValue("c").trim()).isEqualTo("default-cluster");
+        assertThat(commandLine.getOptionValue("c").trim()).isEqualTo("default-demo8_cluster");
     }
 }

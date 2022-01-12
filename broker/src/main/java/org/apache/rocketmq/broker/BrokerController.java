@@ -371,7 +371,7 @@ public class BrokerController {
                     try {
                         BrokerController.this.consumerFilterManager.persist();
                     } catch (Throwable e) {
-                        log.error("schedule persist consumer filter error.", e);
+                        log.error("schedule persist consumer demo6_filter error.", e);
                     }
                 }
             }, 1000 * 10, 1000 * 10, TimeUnit.MILLISECONDS);
@@ -500,7 +500,7 @@ public class BrokerController {
         this.transactionalMessageService = ServiceProvider.loadClass(ServiceProvider.TRANSACTION_SERVICE_ID, TransactionalMessageService.class);
         if (null == this.transactionalMessageService) {
             this.transactionalMessageService = new TransactionalMessageServiceImpl(new TransactionalMessageBridge(this, this.getMessageStore()));
-            log.warn("Load default transaction message hook service: {}", TransactionalMessageServiceImpl.class.getSimpleName());
+            log.warn("Load default demo7_transaction message hook service: {}", TransactionalMessageServiceImpl.class.getSimpleName());
         }
         this.transactionalMessageCheckListener = ServiceProvider.loadClass(ServiceProvider.TRANSACTION_LISTENER_ID, AbstractTransactionalMessageCheckListener.class);
         if (null == this.transactionalMessageCheckListener) {
@@ -1186,7 +1186,7 @@ public class BrokerController {
         brokerConfig.setBrokerId(brokerId == 0 ? 1 : brokerId); //TO DO check
         messageStoreConfig.setBrokerRole(BrokerRole.SLAVE);
 
-        //handle the scheduled service
+        //handle the demo4_scheduled service
         //如果是从节点，则关闭定时调度线程(处理 RocketMQ 延迟队列)，如果是主节点，则启动该线程
         try {
             this.messageStore.handleScheduleMessageService(BrokerRole.SLAVE);
@@ -1226,7 +1226,7 @@ public class BrokerController {
         //关闭元数据同步器，因为主节点无需同步
         handleSlaveSynchronize(role);
 
-        //handle the scheduled service
+        //handle the demo4_scheduled service
         //开启定时任务处理线程
         try {
             this.messageStore.handleScheduleMessageService(role);

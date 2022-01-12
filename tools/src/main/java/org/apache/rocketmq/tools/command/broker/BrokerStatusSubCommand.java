@@ -52,7 +52,7 @@ public class BrokerStatusSubCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "which cluster");
+        opt = new Option("c", "clusterName", true, "which demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 

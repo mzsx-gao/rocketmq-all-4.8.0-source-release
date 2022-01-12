@@ -76,10 +76,10 @@ public class RegisterBrokerBody extends RemotingSerializable {
 
             buffer = JSON.toJSONString(filterServerList).getBytes(MixAll.DEFAULT_CHARSET);
 
-            // write filter server list json length
+            // write demo6_filter server list json length
             outputStream.write(convertIntToByteArray(buffer.length));
 
-            // write filter server list json
+            // write demo6_filter server list json
             outputStream.write(buffer);
 
             outputStream.finish();

@@ -183,14 +183,14 @@ public class ClientManageProcessor extends AsyncNettyRequestProcessor implements
 
             if (!this.brokerController.getBrokerConfig().isEnablePropertyFilter()) {
                 response.setCode(ResponseCode.SYSTEM_ERROR);
-                response.setRemark("The broker does not support consumer to filter message by " + subscriptionData.getExpressionType());
+                response.setRemark("The broker does not support consumer to demo6_filter message by " + subscriptionData.getExpressionType());
                 return response;
             }
 
             try {
                 FilterFactory.INSTANCE.get(subscriptionData.getExpressionType()).compile(subscriptionData.getSubString());
             } catch (Exception e) {
-                log.warn("Client {}@{} filter message, but failed to compile expression! sub={}, error={}",
+                log.warn("Client {}@{} demo6_filter message, but failed to compile expression! sub={}, error={}",
                     requestBody.getClientId(), requestBody.getGroup(), requestBody.getSubscriptionData(), e.getMessage());
                 response.setCode(ResponseCode.SUBSCRIPTION_PARSE_FAILED);
                 response.setRemark(e.getMessage());

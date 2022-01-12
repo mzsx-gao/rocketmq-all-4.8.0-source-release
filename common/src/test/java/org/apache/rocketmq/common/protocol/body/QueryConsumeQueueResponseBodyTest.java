@@ -44,7 +44,7 @@ public class QueryConsumeQueueResponseBodyTest {
         list.add(data);
 
         body.setQueueData(list);
-        body.setFilterData("default filter data");
+        body.setFilterData("default demo6_filter data");
         body.setMaxQueueIndex(100L);
         body.setMinQueueIndex(1L);
         body.setSubscriptionData(subscriptionData);
@@ -61,7 +61,7 @@ public class QueryConsumeQueueResponseBodyTest {
         assertThat(jsonData.getPhysicSize()).isEqualTo(1);
 
         //test QueryConsumeQueueResponseBody
-        assertThat(fromJson.getFilterData()).isEqualTo("default filter data");
+        assertThat(fromJson.getFilterData()).isEqualTo("default demo6_filter data");
         assertThat(fromJson.getMaxQueueIndex()).isEqualTo(100L);
         assertThat(fromJson.getMinQueueIndex()).isEqualTo(1L);
         assertThat(fromJson.getSubscriptionData()).isEqualTo(subscriptionData);

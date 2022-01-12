@@ -18,9 +18,9 @@
 package org.apache.rocketmq.filter.expression;
 
 /**
- * A filter performing a comparison of two objects
+ * A demo6_filter performing a comparison of two objects
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.LogicExpression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.LogicExpression,
  * </p>
  */
 public abstract class LogicExpression extends BinaryExpression implements BooleanExpression {

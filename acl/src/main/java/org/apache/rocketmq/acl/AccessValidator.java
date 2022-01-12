@@ -69,7 +69,7 @@ public interface AccessValidator {
     boolean updateGlobalWhiteAddrsConfig(List<String> globalWhiteAddrsList);
 
     /**
-     * get broker cluster acl config information
+     * get broker demo8_cluster acl config information
      * @return
      */
     AclConfig getAllAclConfig();

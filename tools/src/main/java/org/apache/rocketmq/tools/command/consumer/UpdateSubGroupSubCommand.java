@@ -46,7 +46,7 @@ public class UpdateSubGroupSubCommand implements SubCommand {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "create subscription group to which cluster");
+        opt = new Option("c", "clusterName", true, "create subscription group to which demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 

@@ -59,7 +59,7 @@ public class FAQUrl {
         "http://rocketmq.apache.org/docs/faq/";
 
     private static final String TIP_STRING_BEGIN = "\nSee ";
-    private static final String TIP_STRING_END = " for further details.";
+    private static final String TIP_STRING_END = " for further demo3_details.";
 
     public static String suggestTodo(final String url) {
         StringBuilder sb = new StringBuilder();

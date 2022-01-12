@@ -22,7 +22,7 @@ import com.google.common.hash.Hashing;
 import java.nio.charset.Charset;
 
 /**
- * Simple implement of bloom filter.
+ * Simple implement of bloom demo6_filter.
  */
 public class BloomFilter {
 
@@ -38,7 +38,7 @@ public class BloomFilter {
     private int m;
 
     /**
-     * Create bloom filter by error rate and mapping num.
+     * Create bloom demo6_filter by error rate and mapping num.
      *
      * @param f error rate
      * @param n num will mapping to bit
@@ -136,7 +136,7 @@ public class BloomFilter {
 
     /**
      * Extra check:
-     * <li>1. check {@code filterData} belong to this bloom filter.</li>
+     * <li>1. check {@code filterData} belong to this bloom demo6_filter.</li>
      * <p>
      * Then set the related {@code bits} positions to 1.
      * </p>
@@ -144,7 +144,7 @@ public class BloomFilter {
     public void hashTo(BloomFilterData filterData, BitsArray bits) {
         if (!isValid(filterData)) {
             throw new IllegalArgumentException(
-                String.format("Bloom filter data may not belong to this filter! %s, %s",
+                String.format("Bloom demo6_filter data may not belong to this demo6_filter! %s, %s",
                     filterData, this.toString())
             );
         }
@@ -182,7 +182,7 @@ public class BloomFilter {
     public boolean isHit(BloomFilterData filterData, BitsArray bits) {
         if (!isValid(filterData)) {
             throw new IllegalArgumentException(
-                String.format("Bloom filter data may not belong to this filter! %s, %s",
+                String.format("Bloom demo6_filter data may not belong to this demo6_filter! %s, %s",
                     filterData, this.toString())
             );
         }
@@ -217,7 +217,7 @@ public class BloomFilter {
     }
 
     /**
-     * Check {@code BloomFilterData} is valid, and belong to this bloom filter.
+     * Check {@code BloomFilterData} is valid, and belong to this bloom demo6_filter.
      * <li>1. not null</li>
      * <li>2. {@link org.apache.rocketmq.filter.util.BloomFilterData#getBitNum} must be equal to {@code m} </li>
      * <li>3. {@link org.apache.rocketmq.filter.util.BloomFilterData#getBitPos} is not null</li>

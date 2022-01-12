@@ -124,7 +124,7 @@ public class DefaultMQAdminExtTest {
         HashMap<Long, String> brokerAddrs = new HashMap<>();
         brokerAddrs.put(1234l, "127.0.0.1:10911");
         BrokerData brokerData = new BrokerData();
-        brokerData.setCluster("default-cluster");
+        brokerData.setCluster("default-demo8_cluster");
         brokerData.setBrokerName("default-broker");
         brokerData.setBrokerAddrs(brokerAddrs);
         brokerDatas.add(brokerData);
@@ -148,8 +148,8 @@ public class DefaultMQAdminExtTest {
         when(mQClientAPIImpl.cleanExpiredConsumeQueue(anyString(), anyLong())).thenReturn(true);
 
         Set<String> clusterList = new HashSet<>();
-        clusterList.add("default-cluster-one");
-        clusterList.add("default-cluster-two");
+        clusterList.add("default-demo8_cluster-one");
+        clusterList.add("default-demo8_cluster-two");
         when(mQClientAPIImpl.getClusterList(anyString(), anyLong())).thenReturn(clusterList);
 
         GroupList groupList = new GroupList();
@@ -176,7 +176,7 @@ public class DefaultMQAdminExtTest {
         KVTable kvTable = new KVTable();
         HashMap<String, String> kv = new HashMap<>();
         kv.put("broker-name", "broker-one");
-        kv.put("cluster-name", "default-cluster");
+        kv.put("demo8_cluster-name", "default-demo8_cluster");
         kvTable.setTable(kv);
         when(mQClientAPIImpl.getKVListByNamespace(anyString(), anyLong())).thenReturn(kvTable);
 
@@ -266,12 +266,12 @@ public class DefaultMQAdminExtTest {
         Set<String> brokers = new HashSet<>();
         brokers.add("default-broker");
         brokers.add("broker-test");
-        clusterMap.put("default-cluster", brokers);
+        clusterMap.put("default-demo8_cluster", brokers);
         ClusterInfo cInfo = mock(ClusterInfo.class);
         when(cInfo.getClusterAddrTable()).thenReturn(clusterMap);
         HashMap<String, Set<String>> clusterAddress = cInfo.getClusterAddrTable();
-        assertThat(clusterAddress.containsKey("default-cluster")).isTrue();
-        assertThat(clusterAddress.get("default-cluster").size()).isEqualTo(2);
+        assertThat(clusterAddress.containsKey("default-demo8_cluster")).isTrue();
+        assertThat(clusterAddress.get("default-demo8_cluster").size()).isEqualTo(2);
     }
 
     @Test
@@ -303,7 +303,7 @@ public class DefaultMQAdminExtTest {
     public void testExamineTopicRouteInfo() throws RemotingException, MQClientException, InterruptedException {
         TopicRouteData topicRouteData = defaultMQAdminExt.examineTopicRouteInfo("UnitTest");
         assertThat(topicRouteData.getBrokerDatas().get(0).getBrokerName()).isEqualTo("default-broker");
-        assertThat(topicRouteData.getBrokerDatas().get(0).getCluster()).isEqualTo("default-cluster");
+        assertThat(topicRouteData.getBrokerDatas().get(0).getCluster()).isEqualTo("default-demo8_cluster");
     }
 
     @Test
@@ -323,7 +323,7 @@ public class DefaultMQAdminExtTest {
         assertThat(topicConfig).isEqualTo("topicListConfig");
         KVTable kvs = defaultMQAdminExt.getKVListByNamespace(NamesrvUtil.NAMESPACE_ORDER_TOPIC_CONFIG);
         assertThat(kvs.getTable().get("broker-name")).isEqualTo("broker-one");
-        assertThat(kvs.getTable().get("cluster-name")).isEqualTo("default-cluster");
+        assertThat(kvs.getTable().get("demo8_cluster-name")).isEqualTo("default-demo8_cluster");
     }
 
     @Test
@@ -340,7 +340,7 @@ public class DefaultMQAdminExtTest {
 
     @Test
     public void testCleanExpiredConsumerQueue() throws InterruptedException, RemotingTimeoutException, MQClientException, RemotingSendRequestException, RemotingConnectException {
-        boolean result = defaultMQAdminExt.cleanExpiredConsumerQueue("default-cluster");
+        boolean result = defaultMQAdminExt.cleanExpiredConsumerQueue("default-demo8_cluster");
         assertThat(result).isFalse();
     }
 
@@ -352,7 +352,7 @@ public class DefaultMQAdminExtTest {
 
     @Test
     public void testCleanUnusedTopic() throws InterruptedException, RemotingTimeoutException, MQClientException, RemotingSendRequestException, RemotingConnectException {
-        boolean result = defaultMQAdminExt.cleanUnusedTopic("default-cluster");
+        boolean result = defaultMQAdminExt.cleanUnusedTopic("default-demo8_cluster");
         assertThat(result).isFalse();
     }
 
@@ -386,8 +386,8 @@ public class DefaultMQAdminExtTest {
     @Test
     public void testGetClusterList() throws InterruptedException, RemotingTimeoutException, MQClientException, RemotingSendRequestException, RemotingConnectException {
         Set<String> clusterlist = defaultMQAdminExt.getClusterList("UnitTest");
-        assertThat(clusterlist.contains("default-cluster-one")).isTrue();
-        assertThat(clusterlist.contains("default-cluster-two")).isTrue();
+        assertThat(clusterlist.contains("default-demo8_cluster-one")).isTrue();
+        assertThat(clusterlist.contains("default-demo8_cluster-two")).isTrue();
     }
 
     @Test

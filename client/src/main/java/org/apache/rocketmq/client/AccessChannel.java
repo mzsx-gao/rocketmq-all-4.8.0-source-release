@@ -22,7 +22,7 @@ package org.apache.rocketmq.client;
  */
 public enum AccessChannel {
     /**
-     * Means connect to private IDC cluster.
+     * Means connect to private IDC demo8_cluster.
      */
     LOCAL,
 

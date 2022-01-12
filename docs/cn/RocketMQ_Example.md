@@ -473,7 +473,7 @@ public class ScheduledMessageProducer {
       producer.start();
       int totalMessagesToSend = 100;
       for (int i = 0; i < totalMessagesToSend; i++) {
-          Message message = new Message("TestTopic", ("Hello scheduled message " + i).getBytes());
+          Message message = new Message("TestTopic", (demo4_scheduled + i).getBytes());
           // 设置延时等级3,这个消息将在10s之后发送(现在只支持固定的几个时间,详看delayTimeLevel)
           message.setDelayTimeLevel(3);
           // 发送消息
@@ -708,7 +708,7 @@ public class TransactionProducer {
            @Override
            public Thread newThread(Runnable r) {
                Thread thread = new Thread(r);
-               thread.setName("client-transaction-msg-check-thread");
+               thread.setName(demo7_transaction);
                return thread;
            }
        });

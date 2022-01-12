@@ -20,7 +20,7 @@ package org.apache.rocketmq.filter.expression;
 /**
  * Interface of expression.
  * <p>
- * This class was taken from ActiveMQ org.apache.activemq.filter.Expression,
+ * This class was taken from ActiveMQ org.apache.activemq.demo6_filter.Expression,
  * but the parameter is changed to an interface.
  * </p>
  *

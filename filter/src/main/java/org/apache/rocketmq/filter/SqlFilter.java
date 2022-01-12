@@ -26,7 +26,7 @@ import org.apache.rocketmq.filter.parser.SelectorParser;
  * SQL92 Filter, just a wrapper of {@link org.apache.rocketmq.filter.parser.SelectorParser}.
  * <p/>
  * <p>
- * Do not use this filter directly.Use {@link FilterFactory#get} to select a filter.
+ * Do not use this demo6_filter directly.Use {@link FilterFactory#get} to select a demo6_filter.
  * </p>
  */
 public class SqlFilter implements FilterSpi {

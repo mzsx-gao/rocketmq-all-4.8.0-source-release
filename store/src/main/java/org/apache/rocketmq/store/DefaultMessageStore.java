@@ -637,7 +637,7 @@ public class DefaultMessageStore implements MessageStore {
                                 if (extRet) {
                                     tagsCode = cqExtUnit.getTagsCode();
                                 } else {
-                                    // can't find ext content.Client will filter messages by tag also.
+                                    // can't find ext content.Client will demo6_filter messages by tag also.
                                     log.error("[BUG] can't find consume queue extend file content!addr={}, offsetPy={}, sizePy={}, topic={}, group={}",
                                         tagsCode, offsetPy, sizePy, topic, group);
                                     isTagsCodeLegal = false;

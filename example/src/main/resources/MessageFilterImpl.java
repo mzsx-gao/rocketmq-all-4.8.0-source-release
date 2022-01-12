@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.rocketmq.example.filter;
+package org.apache.rocketmq.example.demo6_filter;
 
 import org.apache.rocketmq.common.filter.FilterContext;
 import org.apache.rocketmq.common.filter.MessageFilter;

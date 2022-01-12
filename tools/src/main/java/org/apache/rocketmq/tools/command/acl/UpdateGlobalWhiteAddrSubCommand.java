@@ -45,7 +45,7 @@ public class UpdateGlobalWhiteAddrSubCommand implements SubCommand {
         Option opt = new Option("b", "brokerAddr", true, "update global white address to which broker");
         optionGroup.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "update global white address to which cluster");
+        opt = new Option("c", "clusterName", true, "update global white address to which demo8_cluster");
         optionGroup.addOption(opt);
 
         optionGroup.setRequired(true);

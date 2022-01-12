@@ -420,7 +420,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
             commitOffsetEnable, // commitOffset
             true, // suspend
             subExpression != null, // subscription
-            classFilter // class filter
+            classFilter // class demo6_filter
         );
         try {
             this.pullAPIWrapper.pullKernelImpl(

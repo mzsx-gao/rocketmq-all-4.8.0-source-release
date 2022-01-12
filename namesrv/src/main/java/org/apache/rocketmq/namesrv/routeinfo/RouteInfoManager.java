@@ -335,7 +335,7 @@ public class RouteInfoManager {
 
                         if (nameSet.isEmpty()) {
                             this.clusterAddrTable.remove(clusterName);
-                            log.info("unregisterBroker, remove cluster from clusterAddrTable {}",
+                            log.info("unregisterBroker, remove demo8_cluster from clusterAddrTable {}",
                                 clusterName
                             );
                         }
@@ -531,7 +531,7 @@ public class RouteInfoManager {
                                     brokerNameFound, clusterName);
 
                                 if (brokerNames.isEmpty()) {
-                                    log.info("remove the clusterName[{}] from clusterAddrTable, because channel destroyed and no broker in this cluster",
+                                    log.info("remove the clusterName[{}] from clusterAddrTable, because channel destroyed and no broker in this demo8_cluster",
                                         clusterName);
                                     it.remove();
                                 }

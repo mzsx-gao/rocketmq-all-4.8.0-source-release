@@ -61,7 +61,7 @@ public class CLusterSendMsgRTCommand implements SubCommand {
         opt.setRequired(true);
         options.addOption(opt);
 
-        opt = new Option("c", "cluster", true, "cluster name | default display all cluster");
+        opt = new Option("c", "demo8_cluster", true, "demo8_cluster name | default display all demo8_cluster");
         opt.setRequired(false);
         options.addOption(opt);
 
@@ -133,7 +133,7 @@ public class CLusterSendMsgRTCommand implements SubCommand {
                 for (String clusterName : clusterNames) {
                     Set<String> brokerNames = clusterAddr.get(clusterName);
                     if (brokerNames == null) {
-                        System.out.printf("cluster [%s] not exist", clusterName);
+                        System.out.printf("demo8_cluster [%s] not exist", clusterName);
                         break;
                     }
 

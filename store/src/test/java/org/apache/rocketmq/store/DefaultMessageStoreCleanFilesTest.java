@@ -429,7 +429,7 @@ public class DefaultMessageStoreCleanFilesTest {
         messageStoreConfig.setFlushDiskType(FlushDiskType.SYNC_FLUSH);
         messageStoreConfig.setFlushIntervalConsumeQueue(1);
 
-        // Invalidate DefaultMessageStore`s scheduled task of cleaning expired files.
+        // Invalidate DefaultMessageStore`s demo4_scheduled task of cleaning expired files.
         // work with the code 'Thread.sleep(1000 * 60 + 100)' behind.
         messageStoreConfig.setCleanResourceInterval(Integer.MAX_VALUE);
 

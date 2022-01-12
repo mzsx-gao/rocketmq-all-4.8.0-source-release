@@ -207,14 +207,14 @@ public class PullMessageProcessor extends AsyncNettyRequestProcessor implements 
                     requestHeader.getConsumerGroup());
                 if (consumerFilterData == null) {
                     response.setCode(ResponseCode.FILTER_DATA_NOT_EXIST);
-                    response.setRemark("The broker's consumer filter data is not exist!Your expression may be wrong!");
+                    response.setRemark("The broker's consumer demo6_filter data is not exist!Your expression may be wrong!");
                     return response;
                 }
                 if (consumerFilterData.getClientVersion() < requestHeader.getSubVersion()) {
-                    log.warn("The broker's consumer filter data is not latest, group: {}, topic: {}, serverV: {}, clientV: {}",
+                    log.warn("The broker's consumer demo6_filter data is not latest, group: {}, topic: {}, serverV: {}, clientV: {}",
                         requestHeader.getConsumerGroup(), requestHeader.getTopic(), consumerFilterData.getClientVersion(), requestHeader.getSubVersion());
                     response.setCode(ResponseCode.FILTER_DATA_NOT_LATEST);
-                    response.setRemark("the consumer's consumer filter data not latest");
+                    response.setRemark("the consumer's consumer demo6_filter data not latest");
                     return response;
                 }
             }
@@ -223,7 +223,7 @@ public class PullMessageProcessor extends AsyncNettyRequestProcessor implements 
         if (!ExpressionType.isTagType(subscriptionData.getExpressionType())
             && !this.brokerController.getBrokerConfig().isEnablePropertyFilter()) {
             response.setCode(ResponseCode.SYSTEM_ERROR);
-            response.setRemark("The broker does not support consumer to filter message by " + subscriptionData.getExpressionType());
+            response.setRemark("The broker does not support consumer to demo6_filter message by " + subscriptionData.getExpressionType());
             return response;
         }
 

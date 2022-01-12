@@ -73,7 +73,7 @@ public abstract class AbstractTransactionalMessageCheckListener {
         if (channel != null) {
             brokerController.getBroker2Client().checkProducerTransactionState(groupId, channel, checkTransactionStateRequestHeader, msgExt);
         } else {
-            LOGGER.warn("Check transaction failed, channel is null. groupId={}", groupId);
+            LOGGER.warn("Check demo7_transaction failed, channel is null. groupId={}", groupId);
         }
     }
 

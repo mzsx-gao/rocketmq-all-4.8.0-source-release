@@ -21,7 +21,7 @@ import java.util.Map;
 
 public interface MessageFilter {
     /**
-     * match by tags code or filter bit map which is calculated when message received
+     * match by tags code or demo6_filter bit map which is calculated when message received
      * and stored in consume queue ext.
      *
      * @param tagsCode tagsCode

@@ -49,11 +49,11 @@ public class StorePathConfigHelper {
     }
 
     public static String getTranStateTableStorePath(final String rootDir) {
-        return rootDir + File.separator + "transaction" + File.separator + "statetable";
+        return rootDir + File.separator + "demo7_transaction" + File.separator + "statetable";
     }
 
     public static String getTranRedoLogStorePath(final String rootDir) {
-        return rootDir + File.separator + "transaction" + File.separator + "redolog";
+        return rootDir + File.separator + "demo7_transaction" + File.separator + "redolog";
     }
 
 }

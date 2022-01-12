@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Extend of consume queue, to store something not important,
- * such as message store time, filter bit map and etc.
+ * such as message store time, demo6_filter bit map and etc.
  * <p/>
  * <li>1. This class is used only by {@link ConsumeQueue}</li>
  * <li>2. And is week reliable.</li>
@@ -443,7 +443,7 @@ public class ConsumeQueueExt {
          */
         private short bitMapSize;
         /**
-         * filter bit map
+         * demo6_filter bit map
          */
         private byte[] filterBitMap;
 

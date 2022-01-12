@@ -50,6 +50,8 @@ import static org.apache.rocketmq.remoting.netty.TlsSystemConfig.TLS_ENABLE;
 
 /**
  * broker入口启动类
+ * 启动时加上参数 -c /Users/gaoshudian/data/rocketmq/conf/broker.conf
+ * 以及配上环境变量ROCKETMQ_HOME=/Users/gaoshudian/data/rocketmq
  */
 public class BrokerStartup {
     public static Properties properties = null;

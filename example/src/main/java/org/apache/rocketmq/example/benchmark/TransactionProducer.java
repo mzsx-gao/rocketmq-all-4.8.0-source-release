@@ -244,7 +244,7 @@ public class TransactionProducer {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("b", "test batch id", true, "test batch id, Default: System.currentMillis()");
+        opt = new Option("b", "test demo5_batch id", true, "test demo5_batch id, Default: System.currentMillis()");
         opt.setRequired(false);
         options.addOption(opt);
 

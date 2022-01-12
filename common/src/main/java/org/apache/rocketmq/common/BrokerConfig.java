@@ -129,22 +129,22 @@ public class BrokerConfig {
 
     private boolean traceOn = true;
 
-    // Switch of filter bit map calculation.
+    // Switch of demo6_filter bit map calculation.
     // If switch on:
-    // 1. Calculate filter bit map when construct queue.
+    // 1. Calculate demo6_filter bit map when construct queue.
     // 2. Filter bit map will be saved to consume queue extend file if allowed.
     private boolean enableCalcFilterBitMap = false;
 
-    // Expect num of consumers will use filter.
+    // Expect num of consumers will use demo6_filter.
     private int expectConsumerNumUseFilter = 32;
 
-    // Error rate of bloom filter, 1~100.
+    // Error rate of bloom demo6_filter, 1~100.
     private int maxErrorRateOfBloomFilter = 20;
 
-    //how long to clean filter data after dead.Default: 24h
+    //how long to clean demo6_filter data after dead.Default: 24h
     private long filterDataCleanTimeSpan = 24 * 3600 * 1000;
 
-    // whether do filter when retry.
+    // whether do demo6_filter when retry.
     private boolean filterSupportRetry = false;
     private boolean enablePropertyFilter = false;
 

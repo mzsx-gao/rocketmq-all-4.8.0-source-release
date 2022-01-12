@@ -44,7 +44,7 @@ public class ClusterAclConfigVersionListSubCommand implements SubCommand {
     }
 
     @Override public String commandDesc() {
-        return "List all of acl config version information in cluster";
+        return "List all of acl config version information in demo8_cluster";
     }
 
     @Override public Options buildCommandlineOptions(Options options) {
@@ -53,7 +53,7 @@ public class ClusterAclConfigVersionListSubCommand implements SubCommand {
         Option opt = new Option("b", "brokerAddr", true, "query acl config version for which broker");
         optionGroup.addOption(opt);
 
-        opt = new Option("c", "clusterName", true, "query acl config version for specified cluster");
+        opt = new Option("c", "clusterName", true, "query acl config version for specified demo8_cluster");
         optionGroup.addOption(opt);
 
         optionGroup.setRequired(true);
@@ -95,7 +95,7 @@ public class ClusterAclConfigVersionListSubCommand implements SubCommand {
                 for (String addr : masterSet) {
                     printClusterBaseInfo(defaultMQAdminExt, addr);
                 }
-                System.out.printf("get cluster's plain access config version success.%n");
+                System.out.printf("get demo8_cluster's plain access config version success.%n");
 
                 return;
             }
