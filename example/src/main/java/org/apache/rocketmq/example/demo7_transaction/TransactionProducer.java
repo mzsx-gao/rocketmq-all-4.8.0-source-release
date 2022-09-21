@@ -31,7 +31,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class TransactionProducer {
+
     public static void main(String[] args) throws MQClientException, InterruptedException {
+
         //创建事务监听器
         TransactionListener transactionListener = new TransactionListenerImpl();
         //创建消息生产者
@@ -40,7 +42,7 @@ public class TransactionProducer {
         producer.setNamesrvAddr("localhost:9876");
         //创建线程池
         ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS,
-                new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
+            new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
                 Thread thread = new Thread(r);
@@ -54,11 +56,11 @@ public class TransactionProducer {
         producer.setTransactionListener(transactionListener);
         //启动消息生产者
         producer.start();
-        String[] tags = new String[] {"TagA", "TagB", "TagC"};
+        String[] tags = new String[]{"TagA", "TagB", "TagC"};
         for (int i = 0; i < 3; i++) {
             try {
                 Message msg = new Message("TransactionTopic", tags[i % tags.length], "KEY" + i,
-                        ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                    ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                 //半事务发送1,2步
                 SendResult sendResult = producer.sendMessageInTransaction(msg, null);
                 System.out.printf("%s%n", sendResult);
